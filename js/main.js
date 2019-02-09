@@ -22,12 +22,12 @@ var resources = {
     },
 
     edit: function(resource, i){
-        console.log('Resource: '+resource+' change: '+i);
         var left_over = this[resource];// this is piss poor, recode this later....
         left_over += i;
         if(left_over >= 0){
             this[resource] += i;
             this.update();
+            console.log('Resource: '+resource+' change: '+i);
             return true;
         }
         this.update();
@@ -60,7 +60,7 @@ var actions = {
 var items = {
 
     build: function(item){
-        if(build.hasOwnProperty(item)){
+        if(build.hasOwnProperty(item) && build[item].exists != true){
             if(resources.edit('wood', -5)){
                 build[item].exists = true;
             }
