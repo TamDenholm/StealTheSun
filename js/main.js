@@ -17,7 +17,7 @@ var main = {
     },
 
     die: function(){
-        $('body').html('<p>You died sucka!<br><button onclick="location.reload();">Try again</button></p>');
+        $('body').html('<p class="container mt-5">You died sucka!<br><button onclick="location.reload();">Try again</button></p>');
     },
 
 
