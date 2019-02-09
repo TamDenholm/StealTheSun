@@ -21,14 +21,17 @@ var resources = {
         $('#silicon').text(this.silicon);
     },
 
-    edit_energy: function(i){
-        this.energy += i;
+    edit: function(resource, i){
+        console.log('Resource: '+resource+' change: '+i);
+        var left_over = this[resource];// this is piss poor, recode this later....
+        left_over += i;
+        if(left_over >= 0){
+            this[resource] += i;
+            this.update();
+            return true;
+        }
         this.update();
-    },
-
-    edit_wood: function(i){
-        this.wood += i;
-        this.update();
+        return false;
     },
 };
 
@@ -38,8 +41,13 @@ var actions = {
     attach: function(){
         // add energy button
         $('#gather_wood').on('click', function(){
-            resources.edit_energy(-1);
-            resources.edit_wood(actions.random(1,2));
+            resources.edit('energy', -1);
+            resources.edit('wood', actions.random(1,2));
+        });
+
+        // campfire
+        $('#build_campfire').on('click', function(){
+            items.build('campfire');
         });
     },
 
@@ -48,6 +56,41 @@ var actions = {
     }
 
 };
+
+var items = {
+
+    build: function(item){
+        if(build.hasOwnProperty(item)){
+            if(resources.edit('wood', -5)){
+                build[item].exists = true;
+            }
+        }
+        this.update();
+    },
+
+    update: function(){
+        for(var property in build){
+            if(build[property].exists == true){
+                $('#stuff').append('<div class="col-2 item" id="'+property+'">'+property+'</div>');
+            }
+        }
+    }
+
+};
+
+var build = {
+    campfire: {
+        cost: {
+            wood: 5,
+        },
+        produces: {
+            energy: 2,
+        },
+        consumes: {
+            wood: 1,
+        }
+    }
+}
 
 var main = {
 

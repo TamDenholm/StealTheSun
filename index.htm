@@ -19,6 +19,11 @@ $(document).ready(function(){
     main.run();
 });
 </script>
+<style>
+.item {
+    border: 1px solid #333;
+}
+</style>
 </head>
 <body>
 
@@ -51,10 +56,14 @@ $(document).ready(function(){
             <div class="col-2">
                 <h4>Actions</h4>
                 <button id="gather_wood">Gather Wood</button>
+                <h4>Build</h4>
+                <button id="build_campfire">Build a campfire (5 wood)</button>
             </div>
             <div class="col-7">
-                <p>Not sure what goes here yet...</p>
-                <p>Tell you one thing though, start gathering wood.</p>
+                <h4>Stuff</h4>
+                <div id="stuff" class="row">
+
+                </div>
             </div>
             <div class="col-3">
                 <h4>Event Log</h4>
