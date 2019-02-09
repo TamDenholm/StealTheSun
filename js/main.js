@@ -21,12 +21,12 @@ var resources = {
         $('#silicon').text(this.silicon);
     },
 
-    energy: function(i){
+    edit_energy: function(i){
         this.energy += i;
         this.update();
     },
 
-    wood: function(i){
+    edit_wood: function(i){
         this.wood += i;
         this.update();
     },
@@ -38,8 +38,8 @@ var actions = {
     attach: function(){
         // add energy button
         $('#gather_wood').on('click', function(){
-            resources.energy(-1);
-            resources.wood(this.random(1,2));
+            resources.edit_energy(-1);
+            resources.edit_wood(actions.random(1,2));
         });
     },
 
