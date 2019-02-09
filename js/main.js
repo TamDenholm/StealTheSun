@@ -69,6 +69,7 @@ var items = {
     },
 
     update: function(){
+        $('#stuff').html('');
         for(var property in build){
             if(build[property].exists == true){
                 $('#stuff').append('<div class="col-2 item" id="'+property+'">'+property+'</div>');
