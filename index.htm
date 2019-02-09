@@ -10,39 +10,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+    <script src="/js/main.js"></script>
 <script>
 $(document).ready(function(){
-    // resources
-    var energy = 10;
-    update_resources();
-
-    // ticks
-//    setInterval(function(){
-//    }, 500); // update every half second
-    setInterval(function(){
-        if(energy > 0){
-            energy -= 1;
-        }else{
-            you_died();
-        }
-        update_resources();
-   }, 1000); // update every second
-
-
-    // first button
-    $('#add_energy').on('click', function(){
-        energy += 1;
-        update_resources();
-    });
-
-
-    function update_resources(){
-        $('#energy').text(energy);
-    }
-
-    function you_died(){
-        $('body').html('<p>You died sucka!<br><button onclick="location.reload();">Try again</button></p>');
-    }
+    main.run();
 });
 </script>
 </head>
@@ -55,29 +26,30 @@ $(document).ready(function(){
 
     
     <pre>
-        find shelter, slows energy loss
-        explore, costs 10 energy
-        find sticks, wood resource
-        gather sticks, + wood
-        light fire and burn sticks for energy
-        rock
-        metal
-        build house, costs -1/sec to run, increases max energy
-        build solar panel +2/sec energy
-        sawmill -2/sec energy, +2 sec wood
-        build mine for rock/steel
-        craft pickaxe, chainsaw, drill
-        build robot
-        upgrades for robots
-        warehouses
-        silicon
-        rocket pad
-        rocket
-        satellites
-        space exploration
-        find planets
-        harvest planets
-        dyson sphere
+ * find shelter, slows energy loss
+ * explore, costs 10 energy
+ * find sticks, wood resource
+ * gather sticks, + wood
+ * light fire and burn sticks for energy
+ * rock
+ * metal
+ * build house, costs -1/sec to run, increases max energy
+ * build solar panel +2/sec energy
+ * sawmill -2/sec energy, +2 sec wood
+ * build mine for rock/steel
+ * craft pickaxe, chainsaw, drill
+ * build robot
+ * upgrades for robots
+ * warehouses
+ * silicon
+ * rocket pad
+ * rocket
+ * satellites
+ * space exploration
+ * find planets
+ * harvest planets
+ * dyson sphere
+ * Mr Burns block out the sun - DrunkPhilospher
     </pre>
 
 </body>
