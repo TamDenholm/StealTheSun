@@ -61,9 +61,11 @@ var items = {
 
     build: function(item){
         if(build.hasOwnProperty(item) && build[item].exists != true){
-            if(resources.edit('wood', -5)){
-                build[item].exists = true;
-            }
+            $.each(build[item].cost, function(resource, amount){
+                if(resources.edit(resource, (0-amount))){
+                    build[item].exists = true;
+                }
+            });
         }
         this.update();
     },
