@@ -73,7 +73,14 @@ var items = {
     update: function(){
         $('#stuff').html('');
         $.each(items.get_active(), function(k, item){
-            $('#stuff').append('<div class="col-2 item" id="'+item+'">'+item+'</div>');
+            $('#stuff').append('\
+            <div class="col-4 item card" id="'+item+'">\
+                <div class="card-body">\
+                    <img src="/images/'+build[item].img+'">\
+                    <h5 class="card-title">'+build[item].title+'</h5>\
+                </div>\
+            </div>\
+            ');
         });
     },
 
@@ -91,6 +98,8 @@ var items = {
 
 var build = {
     campfire: {
+        title: 'Campfire',
+        img: 'campfire.png',
         cost: {
             wood: 5,
         },

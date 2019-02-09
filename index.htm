@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html class="h-100">
 <head>
-	<title>Incremental</title>
+	<title>Steal the Sun</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
     <script src="/js/main.js"></script>
+
 <script>
 $(document).ready(function(){
     main.run();
 });
 </script>
-<style>
-.item {
-    border: 1px solid #333;
-}
-</style>
 </head>
 <body>
 
@@ -31,35 +28,42 @@ $(document).ready(function(){
     <div class="container mt-5">
         <div class="row">
             <div class="col">
-                <h1 class="display-4">Steal the sun</h1>
+                <h1 class="display-4">Steal the Sun</h1>
                 <p class="lead">The game where you have to harness the sun's energy for some reason we're not sure about yet</p>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-2">
-                <h4>Resources:</h4>
-            </div>
-            <div class="col-9">
-                <ul class="list-inline">
-                    <li class="list-inline-item">Energy: <span id="energy"></span></li>
-                    <li class="list-inline-item">Wood: <span id="wood"></span></li>
-                    <li class="list-inline-item">Stone: <span id="stone"></span></li>
-                    <li class="list-inline-item">Metal: <span id="metal"></span></li>
-                    <li class="list-inline-item">Silicon: <span id="silicon"></span></li>
-                </ul>
-            </div>
-            <div class="col-1">
                 <a href="/notes.htm">Notes</a>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-5 mb-5 shadow-sm p-3 border bg-light">
             <div class="col-2">
-                <h4>Actions</h4>
-                <button id="gather_wood">Gather Wood</button>
-                <h4>Build</h4>
-                <button id="build_campfire">Build a campfire (5 wood)</button>
+                Energy: <span id="energy"></span>
             </div>
-            <div class="col-7">
+            <div class="col-2">
+                Wood: <span id="wood"></span>
+            </div>
+            <div class="col-2">
+                Stone: <span id="stone"></span>
+            </div>
+            <div class="col-2">
+                Metal: <span id="metal"></span>
+            </div>
+            <div class="col-2">
+                Silicon: <span id="silicon"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <h4>Actions</h4>
+                <button id="gather_wood" class="btn btn-dark">
+                    <i class="fas fa-tree"></i>
+                    Gather Wood
+                </button>
+                <h4 class="mt-5">Build</h4>
+                <button id="build_campfire" class="btn btn-primary">
+                    <i class="fab fa-gripfire"></i>
+                    Build a campfire (5 wood)
+                </button>
+            </div>
+            <div class="col-6">
                 <h4>Stuff</h4>
                 <div id="stuff" class="row">
 
