@@ -70,11 +70,19 @@ var items = {
 
     update: function(){
         $('#stuff').html('');
+        $.each(items.get_active(), function(k, item){
+            $('#stuff').append('<div class="col-2 item" id="'+item+'">'+item+'</div>');
+        });
+    },
+
+    get_active: function(){
+        var active_items = [];
         for(var property in build){
             if(build[property].exists == true){
-                $('#stuff').append('<div class="col-2 item" id="'+property+'">'+property+'</div>');
+                active_items.push(property);
             }
         }
+        return active_items;
     }
 
 };
@@ -104,19 +112,37 @@ var main = {
         actions.attach();
 
         // begin loop
-        /*
         setInterval(function(){
+
+            // production & consumption
+            main.production_consumption();
+    
             // only lose energy at night, staying warm
-            //resources.energy--;
             resources.update();
 
         }, this.game_tick);
-        */
     },
 
     die: function(){
         $('body').html('<p class="container mt-5">You died sucka!<br><button onclick="location.reload();">Try again</button></p>');
     },
+
+    production_consumption: function(){
+        // get all the active items
+        $.each(items.get_active(), function(k, item){
+            // get everything the item consumes
+            $.each(build[item].consumes, function(resource, amount){
+                // edit resource
+                if(resources.edit(resource, (0-amount))){
+                    // if consumed, then produce
+                    $.each(build[item].produces, function(resource, amount){
+                        // edit resource
+                        resources.edit(resource, amount);
+                    });        
+                }
+            });
+        });
+    }
 
 
 };
