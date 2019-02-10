@@ -44,6 +44,7 @@ var main = {
             {
               return true;
             }
+            //get everything the item consumes
             $.each(build[item].consumes, function(resource, amount){
                 // edit resource
                 if(resources.edit(resource, (0-amount))){
