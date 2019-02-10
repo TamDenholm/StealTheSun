@@ -4,8 +4,10 @@ var actions = {
     attach: function(){
         // add energy button
         $('#gather_wood').on('click', function(){
-            resources.edit('energy', -1);
-            resources.edit('wood', actions.random(1,2));
+            let gain = actions.random(1,Math.min(2,resources['wood'].cap-resources['wood'].amount))
+            if (gain!==0 && resources.editable('wood',gain) && resources.edit('energy', -1)) {
+                resources.edit('wood', gain);
+            }
         });
 
         // campfire
@@ -15,7 +17,8 @@ var actions = {
     },
 
     random: function(min, max){
-        return Math.floor((Math.random() * max) + min);
+        if (min>max) return 0
+        return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
 
 };

@@ -38,27 +38,18 @@ var resources = {
 
     // edit how much of any resource we have
     edit: function(resource, i){
-        var left_over = this[resource].amount;// this is piss poor, recode this later....
-        left_over += i;
-        // if we're now going below 0
-        if(left_over >= 0){
-            // if we're above the cap
-            if(left_over > this[resource].cap){
-                console.log('hit '+resource+' cap');
-                // update return false
-                this.update();
-                return false;
-            }else{
-                // make the normal edit
-                this[resource].amount += i;
-            }
-            // update and return true
-            this.update();
-            console.log('Resource: '+resource+' change: '+i);
-            return true;
+        let edited = false
+        if (resources.editable(resource, i)) {
+            this[resource].amount += i
+            edited = true
         }
-        // update and return false
-        this.update();
-        return false;
+        this.update()
+        return edited
     },
+    
+    // check if a resource is "editable"
+    editable: function(resource, i) {
+        let edited = this[resource].amount + i
+        return edited>=0 && edited<=this[resource].cap
+    }
 };

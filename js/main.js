@@ -31,12 +31,10 @@ var main = {
             $.each(build[item].consumes, function(resource, amount){
                 // edit resource
                 if(resources.edit(resource, (0-amount))){
-                    console.log('consumed');
                     // if consumed, then produce
                     $.each(build[item].produces, function(resource, amount){
                         // edit resource
                         resources.edit(resource, amount);
-                        console.log('produced');
                     });        
                 }
             });
