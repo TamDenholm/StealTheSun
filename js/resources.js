@@ -61,4 +61,9 @@ var resources = {
         this.update();
         return false;
     },
+    //Checks if adding a certain amount will exceed the resource cap
+    canAdd: function(resource,amount){
+        //If so will return false, and if it will not exceed will return true
+        return this[resource].amount + amount <= this[resource].cap;
+    },
 };
