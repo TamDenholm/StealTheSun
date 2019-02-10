@@ -28,16 +28,28 @@ var main = {
         // get all the active items
         $.each(items.get_active(), function(k, item){
             // get everything the item consumes
+            let canProduce = true
+
+            // check if resource getting consumed is enough
             $.each(build[item].consumes, function(resource, amount){
-                // edit resource
-                if(resources.edit(resource, (0-amount))){
-                    // if consumed, then produce
-                    $.each(build[item].produces, function(resource, amount){
-                        // edit resource
-                        resources.edit(resource, amount);
-                    });        
-                }
+                if (!resources.editable(resource,-amount)) canProduce = false
             });
+            
+            // check if resource produced don't go above the cap
+            $.each(build[item].produces, function(resource, amount){
+                if (!resources.editable(resource,amount)) canProduce = false
+            });
+
+            if(canProduce) {
+                // consume the resource
+                $.each(build[item].consumes, function(resource, amount){
+                    resources.edit(resource, -amount)
+                });
+                // finally gain the resources that are "made"
+                $.each(build[item].produces, function(resource, amount){
+                    resources.edit(resource, amount);
+                });        
+            }
         });
     }
 
