@@ -43,8 +43,7 @@ var resources = {
         // if we're now going below 0
         if(left_over >= 0){
             // if we're above the cap
-            if(left_over > this[resource].cap){
-                console.log('hit '+resource+' cap');
+            if(this.hit_cap(resource, i)){
                 // update return false
                 this.update();
                 return false;
@@ -61,4 +60,17 @@ var resources = {
         this.update();
         return false;
     },
+
+    // checks to see if you've hit the resource cap
+    hit_cap: function(resource, i){
+        var left_over = this[resource].amount; // this is piss poor, recode this later....
+        left_over += i;
+        if(left_over > this[resource].cap){
+            // hit cap
+            console.log('hit '+resource+' cap');
+            return true;
+        }
+        // didnt hit cap
+        return false;
+    }
 };
