@@ -1,4 +1,4 @@
-var items = {
+let items = {
 
     build: function(item){
         if(build.hasOwnProperty(item) && build[item].exists != true){
@@ -23,8 +23,8 @@ var items = {
     },
 
     get_active: function(){
-        var active_items = [];
-        for(var property in build){
+        let active_items = [];
+        for(let property in build){
             if(build[property].exists == true){
                 active_items.push(property);
             }

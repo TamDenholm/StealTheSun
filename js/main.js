@@ -1,4 +1,4 @@
-var main = {
+let main = {
 
     game_tick: 1000,
 
@@ -29,7 +29,7 @@ var main = {
         $.each(items.get_active(), function(k, item){
             // get everything the item consumes
             $.each(build[item].consumes, function(resource, amount){
-                var result = main.can_consume(resource, amount);
+                let result = main.can_consume(resource, amount);
                 console.log('result of can_consume('+resource+', '+amount+') is '+result);
                 if(main.can_consume(resource, amount)){
                     // edit resource
@@ -48,7 +48,7 @@ var main = {
     },
 
     can_consume: function(){
-        var return_val = true;
+        let return_val = true;
         // get all the active items
         $.each(items.get_active(), function(k, item){
             // in order to consume

@@ -1,4 +1,4 @@
-var build = {
+let build = {
     campfire: {
         title: 'Campfire',
         icon: 'fab fa-gripfire',

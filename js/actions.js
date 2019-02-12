@@ -1,4 +1,4 @@
-var actions = {
+let actions = {
 
     // attach the actions to the DOM
     attach: function(){
