@@ -15,10 +15,12 @@
     <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
     <script src="/js/main.js"></script>
+    <script src="/js/utilities.js"></script>
     <script src="/js/actions.js"></script>
     <script src="/js/items.js"></script>
     <script src="/js/build.js"></script>
     <script src="/js/resources.js"></script>
+    <script src="/js/map.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -27,7 +29,10 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
+    <!-- i dont like this, i'd rather load this image in via JS, but this'll do for now -->
+    <div style="display: none">
+        <img id="spritesheet" src="/images/spritesheets/new.png" width="704" height="64">
+    </div>
 
     <div class="container mt-5">
         <div class="row">
@@ -70,6 +75,7 @@ $(document).ready(function(){
             <div class="col-6">
                 <h4>Map</h4>
                 <canvas id="map" height="576" width="576"></canvas>
+
                 <h4>Stuff</h4>
                 <div id="stuff" class="row">
                     
@@ -87,7 +93,6 @@ $(document).ready(function(){
 
 
     
-
 
 </body>
 </html>

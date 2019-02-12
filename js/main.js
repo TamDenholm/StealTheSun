@@ -7,6 +7,7 @@ let main = {
         // initial load
         resources.update();
         actions.attach();
+        map.init();
 
         // begin loop
         setInterval(function(){
