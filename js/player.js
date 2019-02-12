@@ -6,44 +6,30 @@ let player = {
         return this.current_position;
     },
 
-    move_left: function(){
+    move: function(direction){
         let x = this.current_position[0];
         let y = this.current_position[1];
-        // dont fall off the edge
-        if(x <= 1){
-            return false;
-        }
-        this.current_position = [x - 1, y];
-    },
 
-    move_right: function(){
-        let x = this.current_position[0];
-        let y = this.current_position[1];
         // dont fall off the edge
-        if(x >= map.cols){
+        if(x <= 1 || x >= map.cols || y <= 1 || y >= map.rows){
             return false;
         }
-        this.current_position = [x + 1, y];
-    },
 
-    move_up: function(){
-        let x = this.current_position[0];
-        let y = this.current_position[1];
-        // dont fall off the edge
-        if(y <= 1){
-            return false;
+        // make the movement
+        switch(direction){
+            case 'left':
+                this.current_position = [x - 1, y];
+                break;
+            case 'right':
+                this.current_position = [x + 1, y];
+                break;
+            case 'up':
+                this.current_position = [x, y - 1];
+                break;
+            case 'down':
+                this.current_position = [x, y + 1];
+                break;
         }
-        this.current_position = [x, y - 1];
-    },
-
-    move_down: function(){
-        let x = this.current_position[0];
-        let y = this.current_position[1];
-         // dont fall off the edge
-         if(y >= map.rows){
-            return false;
-        }
-        this.current_position = [x, y + 1];
     },
 
 }

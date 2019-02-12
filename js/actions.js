@@ -16,46 +16,42 @@ let actions = {
         // player movement
         // left
         $('#move_left').on('click', function(){
-            player.move_left();
+            player.move('left');
             map.draw_map();
         });
         // right
         $('#move_right').on('click', function(){
-            player.move_right();
+            player.move('right');
             map.draw_map();
         });
         // up
         $('#move_up').on('click', function(){
-            player.move_up();
+            player.move('up');
             map.draw_map();
         });
         // down
         $('#move_down').on('click', function(){
-            player.move_down();
+            player.move('down');
             map.draw_map();
         });
         // keybrindings for players movement
         $(document).keydown(function(e){
-            console.log('Key press: '+e.which);
             switch(e.which){
                 case 37:
-                    player.move_left();
-                    map.draw_map();
+                    player.move('left');
                     break;
                 case 38:
-                    player.move_up();
-                    map.draw_map();
+                    player.move('up');
                     break
                 case 39:
-                    player.move_right();
-                    map.draw_map();
+                    player.move('right');
                     break;
                 case 40:
-                    player.move_down();
-                    map.draw_map();
+                    player.move('down');
                     break;
                 default: return;
             }
+            map.draw_map();
             e.preventDefault();
         });
     },
