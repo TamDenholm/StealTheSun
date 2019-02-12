@@ -1,7 +1,6 @@
 var build = {
     campfire: {
         title: 'Campfire',
-        img: 'campfire.png',
         icon: 'fab fa-gripfire',
         cost: {
             wood: 5,

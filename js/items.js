@@ -15,11 +15,8 @@ var items = {
         $('#stuff').html('');
         $.each(items.get_active(), function(k, item){
             $('#stuff').append('\
-            <div class="col-4 item card" id="'+item+'">\
-                <div class="card-body">\
-                    <img src="/images/'+build[item].img+'">\
-                    <h5 class="card-title">'+build[item].title+'</h5>\
-                </div>\
+            <div class="col-4 item" id="'+item+'">\
+                <h5>'+build[item].title+'</h5>\
             </div>\
             ');
         });
