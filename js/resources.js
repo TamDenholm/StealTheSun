@@ -56,6 +56,10 @@ let resources = {
             console.log('Resource: '+resource+' change: '+i);
             return true;
         }
+        // allow energy to run out so that it triggers die condition
+        if(resource == 'energy'){
+            this['energy'].amount = 0;
+        }
         // update and return false
         this.update();
         return false;
