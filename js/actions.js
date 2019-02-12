@@ -3,9 +3,9 @@ let actions = {
     // attach the actions to the DOM
     attach: function(){
         // add energy button
-        $('#gather_wood').on('click', function(){
-            resources.edit('energy', -1);
-            resources.edit('wood', utilities.random(1,2));
+        $('#gather').on('click', function(){
+            // get the position
+            actions.gather();
         });
 
         // campfire
@@ -57,4 +57,17 @@ let actions = {
     },
 
 
+    gather: function(){
+        // player position
+        let pl_pos = player.get_position();
+        // get the resource of the tile we're on
+        let resource = map.get_resource(pl_pos[0], pl_pos[1]);
+        // does the tile we're on have a resource we can gather?
+        if(resource != false){
+            // gather the resource
+            resources.edit(resource, 2);
+            // use energy
+            resources.edit('energy', -1);
+        }
+    }
 };

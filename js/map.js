@@ -21,7 +21,7 @@ let map = {
         this.spritesheet.onload = function(){
             map.draw_map();
         };
-        this.spritesheet.src = '/images/spritesheets/new.png';
+        this.spritesheet.src = '/images/spritesheets/map.png';
     },
 
     draw_map: function(){
@@ -36,7 +36,7 @@ let map = {
         // place the resources
         $.each(this.resources, function(resource,positions){
             $.each(positions, function(k, position){
-                map.draw_tile(resource, position[0]-1, position[1]-1);    
+                map.draw_tile(resource, position[0]-1, position[1]-1);
             })
         });
         // get the player position
@@ -89,23 +89,17 @@ let map = {
         return false;
     },
 
-
-    get_tile: function(x,y){
-        // get the player position
-        let human = player.get_position();
-        if(x == human[0] && y == human[1]){
-            return this.get_sprite('player');
-        }
-        // trees
-        if(x == 4 && y == 4){
-            return this.get_sprite('tree', 3);
-        }
-        // stone
-        if(x == 4 && y == 6){
-            return this.get_sprite('stone', 3);
-        }
-        return false;
-        //return utilities.random(9,10);
-    }
+    // give coordinates, get the resource, or false
+    get_resource: function(x,y){
+        let rtn = false;
+        $.each(this.resources, function(resource,positions){
+            $.each(positions, function(k, position){
+                if(position[0] == x && position[1] == y){
+                    rtn = resource;
+                }
+            })
+        });
+        return rtn;
+    },
 
 }
