@@ -1,4 +1,4 @@
-var resources = {
+let resources = {
 
     energy: {
         amount: 10,
@@ -38,7 +38,7 @@ var resources = {
 
     // edit how much of any resource we have
     edit: function(resource, i){
-        var left_over = this[resource].amount;// this is piss poor, recode this later....
+        let left_over = this[resource].amount;// this is piss poor, recode this later....
         left_over += i;
         // if we're now going below 0
         if(left_over >= 0){
@@ -63,7 +63,7 @@ var resources = {
 
     // checks to see if you've hit the resource cap
     hit_cap: function(resource, i){
-        var left_over = this[resource].amount; // this is piss poor, recode this later....
+        let left_over = this[resource].amount; // this is piss poor, recode this later....
         left_over += i;
         if(left_over > this[resource].cap){
             // hit cap
