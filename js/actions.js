@@ -15,7 +15,10 @@ var actions = {
     },
 
     random: function(min, max){
-        return Math.floor((Math.random() * max) + min);
+        if(min>max){
+            return 0
+        }
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
 };
