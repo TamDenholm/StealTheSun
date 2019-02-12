@@ -65,6 +65,14 @@ let resources = {
         return false;
     },
 
+    // check to see if player has resources
+    available: function(resource, amount){
+        if(this[resource].amount >= amount){
+            return true;
+        }
+        return false;
+    },
+
     // checks to see if you've hit the resource cap
     hit_cap: function(resource, i){
         let left_over = this[resource].amount; // this is piss poor, recode this later....

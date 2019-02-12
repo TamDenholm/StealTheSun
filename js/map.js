@@ -46,6 +46,7 @@ let map = {
 
     // tell this what to place, and where to place it on the map
     draw_tile: function(sprite, x, y){
+        console.log('drawing tile');
         this.context.drawImage(
             this.spritesheet,            // spritesheet image for map
             (this.get_sprite(sprite) - 1) * this.tile_size, // spritesheet start x
@@ -61,29 +62,33 @@ let map = {
 
     // lookup function that makes it easier to specify a sprite
     get_sprite: function(name, level = 3){
+        // could do with putting this data in an object or something
         if(name == 'stone'){
-            switch (level) {
-                case 1: return 1;
-                case 2: return 2;
-                case 3: return 3;
-                case 4: return 4;
-                default: return 1;
-            }
-        }
-        if(name == 'wood'){
             switch (level) {
                 case 1: return 5;
                 case 2: return 6;
                 case 3: return 7;
                 case 4: return 8;
-                default: return 5;
+                default: return 7;
+            }
+        }
+        if(name == 'wood'){
+            switch (level) {
+                case 1: return 9;
+                case 2: return 10;
+                case 3: return 11;
+                case 4: return 12;
+                default: return 11;
             }
         }
         if(name == 'grass'){
-            return 9;
+            return 2;
         }
         if(name == 'player'){
-            return 11;
+            return 4;
+        }
+        if(name == 'campfire'){
+            return 1;
         }
         console.log('Specified a sprite that doesnt exist!');
         return false;

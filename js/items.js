@@ -1,25 +1,26 @@
 let items = {
 
     build: function(item){
+        // check if item exists in the build object
         if(build.hasOwnProperty(item) && build[item].exists != true){
+            console.log(item+' defined and doesnt already exist');
+            // can we afford this item?
             $.each(build[item].cost, function(resource, amount){
-                if(resources.edit(resource, (0-amount))){
-                    build[item].exists = true;
+                if(resources.available(resource, amount)){
+                    console.log(item+' is affordable');
+                    // can we build on this tile?
+                    let pl_pos = player.get_position();
+                    // not resource tile, no tile requirement
+                    if(map.get_resource(pl_pos[0], pl_pos[1]) == false && build[item].requires_tile == false){
+                        console.log(item+' is available to build');
+                        console.log(pl_pos);
+                        // build on tile
+                        map.draw_tile('campfire', pl_pos[0], pl_pos[1]);
+                        map.draw_map();
+                    }
                 }
             });
         }
-        this.update();
-    },
-
-    update: function(){
-        $('#stuff').html('');
-        $.each(items.get_active(), function(k, item){
-            $('#stuff').append('\
-            <div class="col-4 item" id="'+item+'">\
-                <h5>'+build[item].title+'</h5>\
-            </div>\
-            ');
-        });
     },
 
     get_active: function(){
