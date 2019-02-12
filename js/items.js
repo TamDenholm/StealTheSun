@@ -13,9 +13,10 @@ let items = {
                     // not resource tile, no tile requirement
                     if(map.get_resource(pl_pos[0], pl_pos[1]) == false && build[item].requires_tile == false){
                         console.log(item+' is available to build');
-                        console.log(pl_pos);
                         // build on tile
-                        map.draw_tile('campfire', pl_pos[0], pl_pos[1]);
+                        build[item].exists = true;
+                        build[item].position = pl_pos;
+                        //map.draw_tile('campfire', pl_pos[0], pl_pos[1]);
                         map.draw_map();
                     }
                 }

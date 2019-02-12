@@ -39,6 +39,13 @@ let map = {
                 map.draw_tile(resource, position[0]-1, position[1]-1);
             })
         });
+        // place the buildings
+        $.each(build, function(name,obj){
+            // must exist and have a position array
+            if(obj.exists == true && Array.isArray(obj.position)){
+                map.draw_tile(name, obj.position[0]-1, obj.position[1]-1);
+            }
+        });
         // get the player position
         let human = player.get_position();
         this.draw_tile('player', human[0]-1, human[1]-1);
