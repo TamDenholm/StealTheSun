@@ -1,12 +1,12 @@
 let resources = {
 
     energy: {
-        amount: 10,
-        cap: 15
+        amount: 50,
+        cap: 50
     },
     wood: {
         amount: 0,
-        cap: 15
+        cap: 50
     },
     stone: {
         amount: 0,

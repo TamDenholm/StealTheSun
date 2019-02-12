@@ -61,8 +61,9 @@ let map = {
     },
 
     get_tile: function(x,y){
-        // player in the middle
-        if(x == 5 && y == 5){
+        // get the player position
+        let human = player.get_position();
+        if(x == human[0] && y == human[1]){
             return 11;
         }
         // trees
