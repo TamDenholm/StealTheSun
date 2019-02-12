@@ -34,6 +34,30 @@ let actions = {
             player.move_down();
             map.draw_map();
         });
+        // keybrindings for players movement
+        $(document).keydown(function(e){
+            console.log('Key press: '+e.which);
+            switch(e.which){
+                case 37:
+                    player.move_left();
+                    map.draw_map();
+                    break;
+                case 38:
+                    player.move_up();
+                    map.draw_map();
+                    break
+                case 39:
+                    player.move_right();
+                    map.draw_map();
+                    break;
+                case 40:
+                    player.move_down();
+                    map.draw_map();
+                    break;
+                default: return;
+            }
+            e.preventDefault();
+        });
     },
 
 
