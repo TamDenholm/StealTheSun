@@ -1,6 +1,8 @@
 let map = {
 
-    map_tiles: {},
+    cols: 9,
+    rows: 9,
+    tile_size: 64,
 
     // initialisation
     init: function(){
@@ -12,37 +14,33 @@ let map = {
         // figure out a better way to load images
         let spritesheet = document.getElementById('spritesheet');
 
-        let cols = 9;
-        let rows = 9;
-        let tile_size = 64;
-
         // place the sprites onto the canvas
-        for(let c = 0; c < cols; c++){
-            for(let r = 0; r < rows; r++){
+        for(let c = 0; c < this.cols; c++){
+            for(let r = 0; r < this.rows; r++){
                 // place ground
                 context.drawImage(
                     spritesheet,            // spritesheet image for map
-                    (this.get_sprite('grass') - 1) * tile_size, // spritesheet start x
+                    (this.get_sprite('grass') - 1) * this.tile_size, // spritesheet start x
                     0,                      // spritesheet start y
-                    tile_size,              // how much of spritesheet to move x
-                    tile_size,              // how much of spritesheet to move x
-                    c * tile_size,          // where to place on canvas x
-                    r * tile_size,          // where to place on cavas y
-                    tile_size,              // how much of canvas to draw x
-                    tile_size               // how much of canvas to draw y
+                    this.tile_size,              // how much of spritesheet to move x
+                    this.tile_size,              // how much of spritesheet to move x
+                    c * this.tile_size,          // where to place on canvas x
+                    r * this.tile_size,          // where to place on cavas y
+                    this.tile_size,              // how much of canvas to draw x
+                    this.tile_size               // how much of canvas to draw y
                 );
                 // place objects over ground
                 if(this.get_tile((c + 1), (r + 1))){
                     context.drawImage(
                         spritesheet,            // spritesheet image for map
-                        (this.get_tile((c + 1),(r + 1)) - 1) * tile_size, // spritesheet start x
+                        (this.get_tile((c + 1),(r + 1)) - 1) * this.tile_size, // spritesheet start x
                         0,                      // spritesheet start y
-                        tile_size,              // how much of spritesheet to move x
-                        tile_size,              // how much of spritesheet to move x
-                        c * tile_size,          // where to place on canvas x
-                        r * tile_size,          // where to place on cavas y
-                        tile_size,              // how much of canvas to draw x
-                        tile_size               // how much of canvas to draw y
+                        this.tile_size,              // how much of spritesheet to move x
+                        this.tile_size,              // how much of spritesheet to move x
+                        c * this.tile_size,          // where to place on canvas x
+                        r * this.tile_size,          // where to place on cavas y
+                        this.tile_size,              // how much of canvas to draw x
+                        this.tile_size               // how much of canvas to draw y
                     );
                 }
             }
@@ -83,11 +81,11 @@ let map = {
         // get the player position
         let human = player.get_position();
         if(x == human[0] && y == human[1]){
-            return 11;
+            return this.get_sprite('player');
         }
         // trees
         if(x == 4 && y == 4){
-            return 7;
+            return this.get_sprite('tree', 3);
         }
         // stone
         if(x == 4 && y == 6){
