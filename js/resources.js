@@ -24,7 +24,7 @@ let resources = {
     // update the UI with the resources
     update: function(){
         // die condition
-        if(this.energy < 1){
+        if(this.energy.amount < 1){
             main.die();
         }
 

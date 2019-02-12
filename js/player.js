@@ -30,6 +30,8 @@ let player = {
                 this.current_position = [x, y + 1];
                 break;
         }
+        // deplete energy
+        resources.edit('energy', -5);
     },
 
 }
