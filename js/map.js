@@ -1,5 +1,7 @@
 let map = {
 
+    map_tiles: {},
+
     // initialisation
     init: function(){
         this.draw_map();
@@ -14,26 +16,13 @@ let map = {
         let rows = 9;
         let tile_size = 64;
 
-        // could make this better, obj maybe?
-        let stone_1 = 1;
-        let stone_2 = 2;
-        let stone_3 = 3;
-        let stone_4 = 4;
-        let tree_1 = 5;
-        let tree_2 = 6;
-        let tree_3 = 7;
-        let tree_4 = 8;
-        let grass_1 = 9;
-        let grass_2 = 10;
-        let player = 11;
-
         // place the sprites onto the canvas
         for(let c = 0; c < cols; c++){
             for(let r = 0; r < rows; r++){
                 // place ground
                 context.drawImage(
                     spritesheet,            // spritesheet image for map
-                    (utilities.random(9,10) - 1) * tile_size, // spritesheet start x
+                    (this.get_sprite('grass') - 1) * tile_size, // spritesheet start x
                     0,                      // spritesheet start y
                     tile_size,              // how much of spritesheet to move x
                     tile_size,              // how much of spritesheet to move x
@@ -60,6 +49,36 @@ let map = {
         }
     },
 
+    get_sprite: function(name, level = 0){
+
+        if(name == 'stone'){
+            switch (level) {
+                case 1: return 1;
+                case 2: return 2;
+                case 3: return 3;
+                case 4: return 4;
+                default: return 1;
+            }
+        }
+        if(name == 'tree'){
+            switch (level) {
+                case 1: return 5;
+                case 2: return 6;
+                case 3: return 7;
+                case 4: return 8;
+                default: return 5;
+            }
+        }
+        if(name == 'grass'){
+            return 9;
+        }
+        if(name == 'player'){
+            return 11;
+        }
+        console.log('Specified a sprite that doesnt exist!');
+        return false;
+    },
+
     get_tile: function(x,y){
         // get the player position
         let human = player.get_position();
@@ -72,7 +91,7 @@ let map = {
         }
         // stone
         if(x == 4 && y == 6){
-            return 3;
+            return this.get_sprite('stone', 3);
         }
         return false;
         //return utilities.random(9,10);
