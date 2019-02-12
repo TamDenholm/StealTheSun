@@ -16,8 +16,12 @@ let map = {
         // fix this load image thing
         this.spritesheet = document.getElementById('spritesheet');
 
-        // draw the map
-        this.draw_map();
+        // wait for the spritesheet to load before loading the map
+        this.spritesheet = new Image();
+        this.spritesheet.onload = function(){
+            map.draw_map();
+        };
+        this.spritesheet.src = '/images/spritesheets/new.png';
     },
 
     draw_map: function(){
