@@ -29,11 +29,20 @@ let resources = {
         }
 
         // update resource UI
-        $('#energy').text(this.energy.amount+'/'+this.energy.cap);
-        $('#wood').text(this.wood.amount+'/'+this.wood.cap);
-        $('#stone').text(this.stone.amount+'/'+this.stone.cap);
-        $('#metal').text(this.metal.amount+'/'+this.metal.cap);
-        $('#silicon').text(this.silicon.amount+'/'+this.silicon.cap);
+        $.each(['energy', 'wood', 'stone', 'metal', 'silicon'], function(k, resource){
+            let el = $('#'+resource);
+            el.text(resources[resource].amount+'/'+resources[resource].cap).css('width', resources.pct(resource)+'%');
+            if(resources.pct(resource) <= 10){
+                el.css('color', '#000');
+            }else{
+                el.css('color', '#fff');
+            }
+        });
+    },
+
+    // work out a percentage for the resource
+    pct: function(resource){
+        return ((this[resource].amount / this[resource].cap) * 100);
     },
 
     // edit how much of any resource we have
