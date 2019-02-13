@@ -28,23 +28,28 @@ let main = {
     production_consumption: function(){
         // get all the active items
         $.each(items.get_active(), function(k, item){
-            // get everything the item consumes
-            $.each(build[item].consumes, function(resource, amount){
-                let result = main.wont_hit_cap(resource, amount);
-                console.log('result of wont_hit_cap('+resource+', '+amount+') is '+result);
-                if(main.wont_hit_cap(resource, amount)){
-                    // edit resource
-                    if(resources.edit(resource, (0-amount))){
-                        console.log('consumed');
-                        // if consumed, then produce
-                        $.each(build[item].produces, function(resource, amount){
-                            // edit resource
-                            resources.edit(resource, amount);
-                            console.log('produced');
-                        });        
+            // is the player standing on the tile?
+            let pl_pos = player.get_position();
+            let item_pos = build[item].position;
+            if(pl_pos[0] == item_pos[0] && pl_pos[1] == item_pos[1]){
+                // get everything the item consumes
+                $.each(build[item].consumes, function(resource, amount){
+                    let result = main.wont_hit_cap(resource, amount);
+                    console.log('result of wont_hit_cap('+resource+', '+amount+') is '+result);
+                    if(main.wont_hit_cap(resource, amount)){
+                        // edit resource
+                        if(resources.edit(resource, (0-amount))){
+                            console.log('consumed');
+                            // if consumed, then produce
+                            $.each(build[item].produces, function(resource, amount){
+                                // edit resource
+                                resources.edit(resource, amount);
+                                console.log('produced');
+                            });        
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     },
 
