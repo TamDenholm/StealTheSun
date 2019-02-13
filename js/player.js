@@ -13,28 +13,30 @@ let player = {
         // make the movement
         switch(direction){
             case 'left':
-                if(x > 0){
+                if(x > 1){
                     this.current_position = [x - 1, y];
+                    resources.edit('energy', -2);
                 }
                 break;
             case 'right':
-                if(x < map.cols - 1){
+                if(x < map.cols){
                     this.current_position = [x + 1, y];
+                    resources.edit('energy', -2);
                 }
                 break;
             case 'up':
-                if(y > 0){
+                if(y > 1){
                     this.current_position = [x, y - 1];
+                    resources.edit('energy', -2);
                 }
                 break;
             case 'down':
-                if(y < map.rows - 1){
+                if(y < map.rows){
                     this.current_position = [x, y + 1];
+                    resources.edit('energy', -2);
                 }
                 break;
         }
-        // deplete energy
-        resources.edit('energy', -2);
     },
 
 }
