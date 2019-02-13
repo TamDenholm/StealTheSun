@@ -10,24 +10,27 @@ let player = {
         let x = this.current_position[0];
         let y = this.current_position[1];
 
-        // dont fall off the edge
-        if(x <= 1 || x >= map.cols || y <= 1 || y >= map.rows){
-            return false;
-        }
-
         // make the movement
         switch(direction){
             case 'left':
-                this.current_position = [x - 1, y];
+                if(x > 0){
+                    this.current_position = [x - 1, y];
+                }
                 break;
             case 'right':
-                this.current_position = [x + 1, y];
+                if(x < map.cols - 1){
+                    this.current_position = [x + 1, y];
+                }
                 break;
             case 'up':
-                this.current_position = [x, y - 1];
+                if(y > 0){
+                    this.current_position = [x, y - 1];
+                }
                 break;
             case 'down':
-                this.current_position = [x, y + 1];
+                if(y < map.rows - 1){
+                    this.current_position = [x, y + 1];
+                }
                 break;
         }
         // deplete energy
