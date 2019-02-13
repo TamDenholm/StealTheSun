@@ -65,9 +65,10 @@ let actions = {
         // does the tile we're on have a resource we can gather?
         if(resource != false){
             // gather the resource
-            resources.edit(resource, 2);
-            // use energy
-            resources.edit('energy', -1);
+            if(resources.edit(resource, utilities.random(1,2))){
+                // use energy
+                resources.edit('energy', -1);
+            }
         }
     }
 };

@@ -30,9 +30,9 @@ let main = {
         $.each(items.get_active(), function(k, item){
             // get everything the item consumes
             $.each(build[item].consumes, function(resource, amount){
-                let result = main.can_consume(resource, amount);
-                console.log('result of can_consume('+resource+', '+amount+') is '+result);
-                if(main.can_consume(resource, amount)){
+                let result = main.wont_hit_cap(resource, amount);
+                console.log('result of wont_hit_cap('+resource+', '+amount+') is '+result);
+                if(main.wont_hit_cap(resource, amount)){
                     // edit resource
                     if(resources.edit(resource, (0-amount))){
                         console.log('consumed');
@@ -48,7 +48,8 @@ let main = {
         });
     },
 
-    can_consume: function(){
+    // checks the resource caps to see if we can consume
+    wont_hit_cap: function(){
         let return_val = true;
         // get all the active items
         $.each(items.get_active(), function(k, item){

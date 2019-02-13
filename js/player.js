@@ -31,7 +31,7 @@ let player = {
                 break;
         }
         // deplete energy
-        resources.edit('energy', -5);
+        resources.edit('energy', -2);
     },
 
 }
