@@ -16,6 +16,7 @@ let items = {
                         // build on tile
                         build[item].exists = true;
                         build[item].position = pl_pos;
+						resources.edit(resource, amount * -1);
                         //map.draw_tile('campfire', pl_pos[0], pl_pos[1]);
                         map.draw_map();
                     }
