@@ -47,31 +47,32 @@ let resources = {
 
     // edit how much of any resource we have
     edit: function(resource, i){
-        let left_over = this[resource].amount;// this is piss poor, recode this later....
-        left_over += i;
-        // if we're now going below 0
-        if(left_over >= 0){
-            // if we're above the cap
-            if(this.hit_cap(resource, i)){
-                // update return false
-                this.update();
-                return false;
-            }else{
-                // make the normal edit
-                this[resource].amount += i;
-            }
-            // update and return true
-            this.update();
-            console.log('Resource: '+resource+' change: '+i);
-            return true;
-        }
-        // allow energy to run out so that it triggers die condition
-        if(resource == 'energy'){
-            this['energy'].amount = 0;
-        }
-        // update and return false
-        this.update();
-        return false;
+		let success = true;
+		
+		// If i is negative and the result is at least zero, or
+		//	i is positive and the resource is not capped, or
+		//	resource is energy (which is allowed to run out)
+		if((i < 0 && this[resource].amount + i >= 0) ||
+			(i > 0 && this[resource].amount < this[resource].cap) ||
+			(resource == 'energy')){
+			// make the edit
+			this[resource].amount += i;
+			
+			// check and edit within bounds
+			if(this[resource].amount < 0){
+				this[resource].amount = 0;
+			}
+			if(this[resource].amount > this[resource].cap){
+				this[resource].amount = this[resource].cap;
+			}
+			
+			this.update();
+			console.log('Resource: '+resource+' change: '+i);
+		} else {
+			success = false;
+		}
+		
+		return success;
     },
 
     // check to see if player has resources
@@ -84,14 +85,11 @@ let resources = {
 
     // checks to see if you've hit the resource cap
     hit_cap: function(resource, i){
-        let left_over = this[resource].amount; // this is piss poor, recode this later....
-        left_over += i;
-        if(left_over > this[resource].cap){
-            // hit cap
-            console.log('hit '+resource+' cap');
-            return true;
-        }
-        // didnt hit cap
-        return false;
+		let return_val = false;
+		if(this[resource].amount >= this[resource].cap){
+			console.log('hit '+resource+' cap');
+			return_val = true;
+		}
+		return return_val;
     }
 };
