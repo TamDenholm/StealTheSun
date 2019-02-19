@@ -47,13 +47,10 @@ const resources = {
 
     // edit how much of any resource we have
     edit(resource, i){
-        let left_over = this[resource].amount;// this is piss poor, recode this later....
-        left_over += i;
-        // if we're now going below 0
-        if(left_over >= 0){
+        // if we're not going below 0
+        if((this[resource].amount + i) >= 0){
             // if we're above the cap
             if(this.hit_cap(resource, i)){
-                // update return false
                 this.update();
                 return false;
             }else{

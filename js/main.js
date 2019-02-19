@@ -64,6 +64,14 @@ const main = {
                 $.each(build[item].produces, (p_resource, p_amount) => {
                     // if what it produces will hit the cap
                     if(resources.hit_cap(p_resource, p_amount)){
+                        // bring the resource to its cap
+                        if(resources[p_resource].amount < resources[p_resource].cap){
+                            // fill to the brim
+                            resources[p_resource].amount = resources[p_resource].cap;
+                            // consume one last time
+                            resources.edit(c_resource, 0-c_amount);
+                            console.log('Fill to the brim');
+                        }
                         // do not consume, just stop
                         console.log(`Cannot consume ${c_resource} because adding ${p_amount} to ${p_resource} would hit its cap`);
                         return_val = false;
