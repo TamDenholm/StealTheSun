@@ -1,7 +1,7 @@
-let utilities = {
+const utilities = {
 
     // generate random numbers between 2 integers
-    random: function(min, max){
+    random(min, max){
         if(min > max){
             return 0
         }
