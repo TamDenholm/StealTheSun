@@ -1,12 +1,12 @@
-let player = {
+const player = {
 
     current_position: [5, 5], // start in the middle
 
-    get_position: function(){
+    get_position(){
         return this.current_position;
     },
 
-    move: function(direction){
+    move(direction){
         let x = this.current_position[0];
         let y = this.current_position[1];
 
