@@ -1,4 +1,4 @@
-let resources = {
+const resources = {
 
     energy: {
         amount: 50,
@@ -22,16 +22,16 @@ let resources = {
     },
 
     // update the UI with the resources
-    update: function(){
+    update(){
         // die condition
         if(this.energy.amount < 1){
             main.die();
         }
 
         // update resource UI
-        $.each(['energy', 'wood', 'stone', 'metal', 'silicon'], function(k, resource){
-            let el = $('#'+resource);
-            el.text(resources[resource].amount+'/'+resources[resource].cap).css('width', resources.pct(resource)+'%');
+        $.each(['energy', 'wood', 'stone', 'metal', 'silicon'], (k, resource) => {
+            const el = $(`#${resource}`);
+            el.text(resources[resource].amount+'/'+resources[resource].cap).css('width', `${resources.pct(resource)}%`);
             if(resources.pct(resource) <= 10){
                 el.css('color', '#000');
             }else{
@@ -41,12 +41,12 @@ let resources = {
     },
 
     // work out a percentage for the resource
-    pct: function(resource){
+    pct(resource){
         return ((this[resource].amount / this[resource].cap) * 100);
     },
 
     // edit how much of any resource we have
-    edit: function(resource, i){
+    edit(resource, i){
         let left_over = this[resource].amount;// this is piss poor, recode this later....
         left_over += i;
         // if we're now going below 0
@@ -62,11 +62,11 @@ let resources = {
             }
             // update and return true
             this.update();
-            console.log('Resource: '+resource+' change: '+i);
+            console.log(`Resource: ${resource} change: ${i}`);
             return true;
         }
         // allow energy to run out so that it triggers die condition
-        if(resource == 'energy'){
+        if(resource === 'energy'){
             this['energy'].amount = 0;
         }
         // update and return false
@@ -75,7 +75,7 @@ let resources = {
     },
 
     // check to see if player has resources
-    available: function(resource, amount){
+    available(resource, amount){
         if(this[resource].amount >= amount){
             return true;
         }
@@ -83,12 +83,12 @@ let resources = {
     },
 
     // checks to see if you've hit the resource cap
-    hit_cap: function(resource, i){
+    hit_cap(resource, i){
         let left_over = this[resource].amount; // this is piss poor, recode this later....
         left_over += i;
         if(left_over > this[resource].cap){
             // hit cap
-            console.log('hit '+resource+' cap');
+            console.log(`hit ${resource} cap`);
             return true;
         }
         // didnt hit cap
