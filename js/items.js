@@ -17,6 +17,9 @@ const items = {
                         build[item].exists = true;
                         build[item].position = pl_pos;
                         resources.edit(resource, amount * -1);
+                        $.each(build[item].caps, (resource, cap) => {
+                            resources[resource].cap = cap;
+                        });
                         //map.draw_tile('campfire', pl_pos[0], pl_pos[1]);
                         map.draw_map();
                     }

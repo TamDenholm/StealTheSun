@@ -6,7 +6,7 @@ const main = {
     run(){
         // initial load
         resources.update();
-        actions.attach();
+        main.draw_buttons();
         map.init();
 
         // begin loop
@@ -14,9 +14,8 @@ const main = {
 
             // production & consumption
             main.production_consumption();
-
-            // only lose energy at night, staying warm
             resources.update();
+            main.draw_buttons();
 
         }, this.game_tick);
     },
@@ -83,5 +82,19 @@ const main = {
         return return_val;
     },
 
+    // draw the build buttons
+    draw_buttons(){
+        $.each(build, (item) => {
+            // check the button requirements to show
+            $.each(build[item].button, (resource, amount) => {
+                if(resources.available(resource, amount)){
+                    console.log(`Build button: ${build[item].title}`);
+                    $('#build_buttons').append(`<button id="build_${item}" class="btn btn-primary m-1"><i class="${build[item].icon}"></i> ${build[item].title}</button>`);
+                    build[item].button = false; // dont build a second button
+                    actions.attach();
+                }
+            });
+        });
+    }
 
 };

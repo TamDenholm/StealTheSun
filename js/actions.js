@@ -1,41 +1,46 @@
 const actions = {
+    // this is hacky as fuck but i had to add off()
+    // into the method chain to stop events being triggered multiple times
 
     // attach the actions to the DOM
     attach(){
+        console.log('run attach');
         // add energy button
-        $('#gather').on('click', () => {
+        $('#gather').off().on('click', () => {
             // get the position
             actions.gather();
         });
 
-        // campfire
-        $('#build_campfire').on('click', () => {
-            items.build('campfire');
+        // create button events
+        $.each(build, (item) => {
+            $(`#build_${item}`).off().on('click', () => {
+                items.build(item);
+            });
         });
 
         // player movement
         // left
-        $('#move_left').on('click', () => {
+        $('#move_left').off().on('click', () => {
             player.move('left');
             map.draw_map();
         });
         // right
-        $('#move_right').on('click', () => {
+        $('#move_right').off().on('click', () => {
             player.move('right');
             map.draw_map();
         });
         // up
-        $('#move_up').on('click', () => {
+        $('#move_up').off().on('click', () => {
             player.move('up');
             map.draw_map();
         });
         // down
-        $('#move_down').on('click', () => {
+        $('#move_down').off().on('click', () => {
             player.move('down');
             map.draw_map();
         });
         // keybrindings for players movement
-        $(document).keydown(e => {
+        $(document).off().on('keydown', (e) => {
             switch(e.which){
                 case 37:
                     player.move('left');

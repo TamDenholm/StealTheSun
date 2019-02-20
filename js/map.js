@@ -6,6 +6,7 @@ const map = {
     spritesheet: null,
     context: null,
     resources: {
+        // where to place resources on the map
         'stone': [[1,3],[4,4],[8,1]],
         'wood': [[5,2],[6,6],[2,5]]
     },
@@ -72,30 +73,42 @@ const map = {
         // could do with putting this data in an object or something
         if(name === 'stone'){
             switch (level) {
-                case 1: return 5;
-                case 2: return 6;
-                case 3: return 7;
-                case 4: return 8;
-                default: return 7;
+                case 1: return 4;
+                case 2: return 5;
+                case 3: return 6;
+                case 4: return 7;
+                default: return 6;
             }
         }
         if(name === 'wood'){
             switch (level) {
-                case 1: return 9;
-                case 2: return 10;
-                case 3: return 11;
-                case 4: return 12;
-                default: return 11;
+                case 1: return 8;
+                case 2: return 9;
+                case 3: return 10;
+                case 4: return 11;
+                default: return 10;
             }
+        }
+        if(name === 'campfire'){
+            return 1;
         }
         if(name === 'grass'){
             return 2;
         }
         if(name === 'player'){
-            return 4;
+            return 3;
         }
-        if(name === 'campfire'){
-            return 1;
+        if(name === 'quarry'){
+            return 12;
+        }
+        if(name === 'sawmill'){
+            return 13;
+        }
+        if(name === 'stonestore'){
+            return 14;
+        }
+        if(name === 'woodstore'){
+            return 15;
         }
         console.log('Specified a sprite that doesnt exist!');
         return false;
