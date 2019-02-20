@@ -1,31 +1,41 @@
 const items = {
 
     build(item){
-        // check if item exists in the build object
-        if(build.hasOwnProperty(item) && build[item].exists !== true){
+        const i = build[item];
+
+        // checks if it doesnt already exist
+        if(i && i.exists !== true){
+
             console.log(`${item} defined and doesnt already exist`);
-            // can we afford this item?
-            $.each(build[item].cost, (resource, amount) => {
-                if(resources.available(resource, amount)){
+            const pl_pos = player.get_position();
+            const res_tile = map.get_resource(pl_pos[0], pl_pos[1]);
+
+            // checks if the player is on the right tile
+            if(i.requires_tile === res_tile){
+
+                console.log(`Currently standing on resource: ${res_tile}`);
+                // checks if the player has all the needed resources
+                const { cost } = i;
+                const hasResources = Object.keys(cost).every((resource) => {
+                    const amount = cost[resource];
+                    console.log(resource, amount);
+                    return resources.available(resource, amount);
+                });
+                if (hasResources) {
                     console.log(`${item} is affordable`);
-                    // can we build on this tile?
-                    const pl_pos = player.get_position();
-                    const res_tile = map.get_resource(pl_pos[0], pl_pos[1]);
-                    console.log(`Currently standing on resource: ${res_tile}`);
-                    // meet player position tile requirements
-                    if(map.get_resource(pl_pos[0], pl_pos[1]) === res_tile && build[item].requires_tile === res_tile){
-                        console.log(`${item} is available to build`);
-                        // build on tile
-                        build[item].exists = true;
-                        build[item].position = pl_pos;
+                    i.exists = true;
+                    i.position = pl_pos;
+                    Object.keys(i.cost).forEach((resource) => {
+                        const amount = i.cost[resource]
                         resources.edit(resource, amount * -1);
-                        $.each(build[item].caps, (resource, cap) => {
-                            resources[resource].cap = cap;
-                        });
-                        map.draw_map();
-                    }
+                    })
+                    Object.keys(i.caps || {}).forEach((resource) => {
+                        const newCap = i.caps.resource;
+                        resources.resource.cap = newCap
+                    });
+                    map.draw_map();
                 }
-            });
+            }
         }
     },
 
