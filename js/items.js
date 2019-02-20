@@ -10,8 +10,10 @@ const items = {
                     console.log(`${item} is affordable`);
                     // can we build on this tile?
                     const pl_pos = player.get_position();
-                    // not resource tile, no tile requirement
-                    if(map.get_resource(pl_pos[0], pl_pos[1]) === false && build[item].requires_tile === false){
+                    const res_tile = map.get_resource(pl_pos[0], pl_pos[1]);
+                    console.log(`Currently standing on resource: ${res_tile}`);
+                    // meet player position tile requirements
+                    if(map.get_resource(pl_pos[0], pl_pos[1]) === res_tile && build[item].requires_tile === res_tile){
                         console.log(`${item} is available to build`);
                         // build on tile
                         build[item].exists = true;
@@ -20,7 +22,6 @@ const items = {
                         $.each(build[item].caps, (resource, cap) => {
                             resources[resource].cap = cap;
                         });
-                        //map.draw_tile('campfire', pl_pos[0], pl_pos[1]);
                         map.draw_map();
                     }
                 }

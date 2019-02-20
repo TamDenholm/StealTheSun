@@ -79,6 +79,19 @@ const resources = {
         return false;
     },
 
+    // check mutltiple resources for availability
+    all_available(obj){
+        if(typeof obj === 'object'){
+            for(let k in obj){
+                if(!this.available(k, obj[k])){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    },
+
     // checks to see if you've hit the resource cap
     hit_cap(resource, i){
         let left_over = this[resource].amount; // this is piss poor, recode this later....

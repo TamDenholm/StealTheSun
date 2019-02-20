@@ -85,15 +85,13 @@ const main = {
     // draw the build buttons
     draw_buttons(){
         $.each(build, (item) => {
-            // check the button requirements to show
-            $.each(build[item].button, (resource, amount) => {
-                if(resources.available(resource, amount)){
-                    console.log(`Build button: ${build[item].title}`);
-                    $('#build_buttons').append(`<button id="build_${item}" class="btn btn-primary m-1"><i class="${build[item].icon}"></i> ${build[item].title}</button>`);
-                    build[item].button = false; // dont build a second button
-                    actions.attach();
-                }
-            });
+            if(resources.all_available(build[item].button)){
+                // we have met the available resource requirements
+                console.log(`Build button: ${build[item].title}`);
+                $('#build_buttons').append(`<button id="build_${item}" class="btn btn-primary m-1"><i class="${build[item].icon}"></i> ${build[item].title}</button>`);
+                build[item].button = false; // dont build a second button
+                actions.attach();
+            }
         });
     }
 
