@@ -46,6 +46,23 @@ const build = {
             wood: 250
         }
     },
+    energystore: {
+        title: 'Energy Store (TEMP)',
+        icon: 'fas fa-warehouse',
+        sprite: 15,
+        requires_tile: false,
+        button: {
+            wood: 15,
+            stone: 15,
+        },
+        cost: {
+            wood: 60,
+            stone: 60
+        },
+        caps: {
+            energy: 100
+        }
+    },
     quarry:{
         title: 'Quarry',
         icon: 'fas fa-tools',
