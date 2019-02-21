@@ -88,7 +88,17 @@ const main = {
             if(resources.all_available(build[item].button)){
                 // we have met the available resource requirements
                 console.log(`Build button: ${build[item].title}`);
-                $('#build_buttons').append(`<button id="build_${item}" class="btn btn-primary m-1"><i class="${build[item].icon}"></i> ${build[item].title}</button>`);
+                // work out the cost for the tooltip
+                let cost = '';
+                $.each(build[item].cost, (resource, amount) => {
+                    cost += `${resource}: ${amount} `;
+                });
+                // create the button code
+                $('#build_buttons').append(
+                    `<button id="build_${item}" class="btn btn-primary m-1" data-tooltip="${cost}" data-tooltip-position="right">
+                    <i class="${build[item].icon}"></i>
+                    ${build[item].title}</button>`
+                );
                 build[item].button = false; // dont build a second button
                 actions.attach();
             }
