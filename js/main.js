@@ -1,12 +1,17 @@
 const main = {
 
     game_tick: 1000,
+    load: true,
+    save: true,
 
     // main loop of the game
     run(){
         // initial load
         resources.update();
         main.draw_buttons();
+        if(this.load === true){
+            main.load_state();
+        }
         map.init();
 
         // begin loop
@@ -16,6 +21,9 @@ const main = {
             main.production_consumption();
             resources.update();
             main.draw_buttons();
+            if(this.save === true){
+                main.save_state();
+            }
 
         }, this.game_tick);
     },
@@ -103,6 +111,55 @@ const main = {
                 actions.attach();
             }
         });
+    },
+
+    // keep the state of the game in localstorage
+    save_state(){
+        const state = window.localStorage;
+        // resources
+        state.setItem('resources', JSON.stringify(resources));
+        // player
+        state.setItem('pl_pos', JSON.stringify(player.get_position()));
+        // items
+        state.setItem('build', JSON.stringify(build));
+    },
+
+    // load the state of the game from the localstorage
+    load_state(){
+        const state = window.localStorage;
+        // load the resources
+        const obj = JSON.parse(state.getItem('resources'));
+        for(item in obj){
+            if(resources.hasOwnProperty(item)){
+                resources[item] = obj[item];
+            }
+        }
+        resources.update();
+
+        // load the player position
+        if(state.getItem('pl_pos')){
+            player.current_position = JSON.parse(state.getItem('pl_pos'));
+        }
+        // load the items
+        if(state.getItem('build')){
+            const items = JSON.parse(state.getItem('build'));
+            for(item in items){
+                build[item].exists = items[item].exists;
+                build[item].position = items[item].position;
+            }
+        }
+    },
+
+    // reset the game and start from scratch
+    reset(){
+        // suspend loading and saving
+        this.load = false;
+        this.save = false;
+        // clear localstorage
+        window.localStorage.clear();
+        // refresh the page
+        location.reload();
+
     }
 
 };

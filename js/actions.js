@@ -59,6 +59,14 @@ const actions = {
             map.draw_map();
             e.preventDefault();
         });
+
+        // reset the game
+        $('#reset_game').on('click', () => {
+            const areyousure = confirm('Are you sure?');
+            if(areyousure){
+                main.reset();
+            }
+        });
     },
 
 

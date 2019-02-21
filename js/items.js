@@ -1,5 +1,7 @@
 const items = {
 
+    active_items: [],
+
     build(item){
         // check if item exists in the build object
         if(build.hasOwnProperty(item) && build[item].exists !== true){
@@ -29,14 +31,14 @@ const items = {
         }
     },
 
+    // searches the build object and builds an array of active items
     get_active(){
-        const active_items = [];
-        for(const property in build){
-            if(build[property].exists === true){
-                active_items.push(property);
+        for(const item in build){
+            if(build[item].exists === true && !this.active_items.includes(item)){
+                this.active_items.push(item);
             }
         }
-        return active_items;
+        return this.active_items;
     }
 
 };
