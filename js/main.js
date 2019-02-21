@@ -29,7 +29,13 @@ const main = {
     },
 
     die(){
-        $('body').html('<p class="container mt-5">You died sucka!<br><button onclick="location.reload();">Try again</button></p>');
+        resources.energy.amount = 50;
+        resources.wood.amount = 0;
+        resources.stone.amount = 0;
+        resources.metal.amount = 0;
+        resources.silicon.amount = 0;
+        main.save_state();
+        $('body').html('<p class="container mt-5">You died sucka!<br>You lost all of your resources but your buildings remain.<br><button onclick="location.reload();">Try again</button></p>');
     },
 
     production_consumption(){
