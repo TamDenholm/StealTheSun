@@ -35,13 +35,13 @@ const map = {
         }
         // after we've drawn the map
         // place the resources
-        $.each(this.resources, (resource,positions) => {
-            $.each(positions, (k, position) => {
+        this.resources.forEach((resource,positions) => {
+            positions.forEach((k, position) => {
                 map.draw_tile(resource, position[0]-1, position[1]-1);
             })
         });
         // place the buildings
-        $.each(build, (name,obj) => {
+        build.forEach((name,obj) => {
             // must exist and have a position array
             if(obj.exists === true && Array.isArray(obj.position)){
                 map.draw_tile(name, obj.position[0]-1, obj.position[1]-1);
@@ -117,8 +117,8 @@ const map = {
     // give coordinates, get the resource, or false
     get_resource(x,y){
         let rtn = false;
-        $.each(this.resources, (resource,positions) => {
-            $.each(positions, (k, position) => {
+        this.resources.forEach((resource,positions) => {
+            positions.forEach((k, position) => {
                 if(position[0] === x && position[1] === y){
                     rtn = resource;
                 }

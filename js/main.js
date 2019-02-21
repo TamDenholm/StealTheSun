@@ -26,13 +26,13 @@ const main = {
 
     production_consumption(){
         // get all the active items
-        $.each(items.get_active(), (k, item) => {
+        items.get_active().forEach((k, item) => {
             // is the player standing on the tile?
             const pl_pos = player.get_position();
             const item_pos = build[item].position;
             if(pl_pos[0] === item_pos[0] && pl_pos[1] === item_pos[1]){
                 // get everything the item consumes
-                $.each(build[item].consumes, (resource, amount) => {
+                build[item].consumes.forEach((resource, amount) => {
                     const result = main.wont_hit_cap(resource, amount);
                     console.log(`result of wont_hit_cap(${resource}, ${amount}) is ${result}`)
                     if(main.wont_hit_cap(resource, amount)){
@@ -40,7 +40,7 @@ const main = {
                         if(resources.edit(resource, (0-amount))){
                             console.log('consumed');
                             // if consumed, then produce
-                            $.each(build[item].produces, (resource, amount) => {
+                            build[item].produces.forEach((resource, amount) => {
                                 // edit resource
                                 resources.edit(resource, amount);
                                 console.log('produced');
@@ -56,11 +56,11 @@ const main = {
     wont_hit_cap(){
         let return_val = true;
         // get all the active items
-        $.each(items.get_active(), (k, item) => {
+        items.get_active().forEach((k, item) => {
             // in order to consume
-            $.each(build[item].consumes, (c_resource, c_amount) => {
+            build[item].consumes.forEach((c_resource, c_amount) => {
                 // first check what it produces
-                $.each(build[item].produces, (p_resource, p_amount) => {
+                build[item].produces.forEach((p_resource, p_amount) => {
                     // if what it produces will hit the cap
                     if(resources.hit_cap(p_resource, p_amount)){
                         // bring the resource to its cap
@@ -84,7 +84,7 @@ const main = {
 
     // draw the build buttons
     draw_buttons(){
-        $.each(build, (item) => {
+        build.forEach((item) => {
             if(resources.all_available(build[item].button)){
                 // we have met the available resource requirements
                 console.log(`Build button: ${build[item].title}`);

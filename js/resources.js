@@ -29,7 +29,7 @@ const resources = {
         }
 
         // update resource UI
-        $.each(['energy', 'wood', 'stone', 'metal', 'silicon'], (k, resource) => {
+        ['energy', 'wood', 'stone', 'metal', 'silicon'].forEach((k, resource) => {
             const el = $(`#${resource}`);
             el.text(resources[resource].amount+'/'+resources[resource].cap).css('width', `${resources.pct(resource)}%`);
             if(resources.pct(resource) <= 10){

@@ -12,7 +12,7 @@ const actions = {
         });
 
         // create button events
-        $.each(build, (item) => {
+        build.forEach((item) => {
             $(`#build_${item}`).off().on('click', () => {
                 items.build(item);
             });
