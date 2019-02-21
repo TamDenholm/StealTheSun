@@ -49,7 +49,7 @@ const main = {
                 $.each(build[item].consumes, (resource, amount) => {
                     const result = main.wont_hit_cap(resource, amount);
                     console.log(`result of wont_hit_cap(${resource}, ${amount}) is ${result}`)
-                    if(main.wont_hit_cap(resource, amount)){
+                    if(main.wont_hit_cap(resource, amount)){ // we're using this wrong, it doesnt take arguments, need to refactor this
                         // edit resource
                         if(resources.edit(resource, (0-amount))){
                             console.log('consumed');
@@ -67,6 +67,7 @@ const main = {
     },
 
     // checks the resource caps to see if we can consume
+    // this should be in resources class
     wont_hit_cap(){
         let return_val = true;
         // get all the active items

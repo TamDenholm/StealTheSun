@@ -69,7 +69,7 @@ const actions = {
         });
     },
 
-
+    // the "action" click event
     gather(){
         // player position
         const pl_pos = player.get_position();
@@ -83,5 +83,19 @@ const actions = {
                 resources.edit('energy', -1);
             }
         }
+        // are we on a building?
+        $.each(build, (item) => {
+            // check all the buildings
+            if(build[item].exists === true && Array.isArray(build[item].position)){
+                // are we standing on it?
+                let item_pos = build[item].position;
+                if(pl_pos[0] === item_pos[0] && pl_pos[1] === item_pos[1]){
+                    // cool, make the resource changes
+                    $.each(build[item].gather, (resource, amount) => {
+                        resources.edit(resource, amount);
+                    });
+                }
+            }
+        });
     }
 };
