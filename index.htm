@@ -15,10 +15,13 @@
     <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
     <script src="/js/main.js"></script>
+    <script src="/js/utilities.js"></script>
     <script src="/js/actions.js"></script>
     <script src="/js/items.js"></script>
     <script src="/js/build.js"></script>
     <script src="/js/resources.js"></script>
+    <script src="/js/map.js"></script>
+    <script src="/js/player.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -27,8 +30,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
-
     <div class="container mt-5">
         <div class="row">
             <div class="col">
@@ -37,55 +38,76 @@ $(document).ready(function(){
                 <a href="/notes.htm">Notes</a>
             </div>
         </div>
-        <div class="row mt-5 mb-5 shadow-sm p-3 border bg-light">
-            <div class="col-2">
-                Energy: <span id="energy"></span>
+        <div class="row">
+            <div class="col-7">
+                <h4>Map</h4>
+                <canvas id="map" height="576" width="576"></canvas>
             </div>
-            <div class="col-2">
-                Wood: <span id="wood"></span>
-            </div>
-            <div class="col-2">
-                Stone: <span id="stone"></span>
-            </div>
-            <div class="col-2">
-                Metal: <span id="metal"></span>
-            </div>
-            <div class="col-2">
-                Silicon: <span id="silicon"></span>
+            <div class="col-3">
+                    <h4>Resources</h4>
+                    Energy:
+                    <div class="progress">
+                        <div id="energy" class="progress-bar" style="width: 100%"></div>
+                    </div>
+                    Wood:
+                    <div class="progress">
+                        <div id="wood" class="progress-bar bg-warning" style="width: 0%"></div>
+                    </div>
+                    Stone:
+                    <div class="progress">
+                        <div id="stone" class="progress-bar bg-secondary" style="width: 0%"></div>
+                    </div>
+                    Metal:
+                    <div class="progress">
+                        <div id="metal" class="progress-bar bg-dark" style="width: 0%"></div>
+                    </div>
+                    Silicon:
+                    <div class="progress">
+                        <div id="silicon" class="progress-bar bg-info" style="width: 0%"></div>
+                    </div>
+                    <h4 class="mt-5">Actions</h4>
+                    <button id="gather" class="btn btn-dark">
+                        <i class="fas fa-hand-paper"></i>
+                        Gather
+                    </button>
+                    <h4 class="mt-5">Build</h4>
+                    <div id="build_buttons"></div>
+                </div>
+                <div class="col-2">
+                <h4>Movement</h4>
+                <div class="row">
+                    <div class="col-3 offset-3">
+                        <button class="btn btn-secondary" id="move_up"><i class="fas fa-arrow-up"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                            <button class="btn btn-secondary" id="move_left"><i class="fas fa-arrow-left"></i></button>
+                    </div>
+                    <div class="col-3 offset-3">
+                        <button class="btn btn-secondary" id="move_right"><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 offset-3">
+                        <button class="btn btn-secondary" id="move_down"><i class="fas fa-arrow-down"></i></button>
+                    </div>
+                </div>
+                <small class="pt-3">Arrow keys work!</small>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3">
-                <h4>Actions</h4>
-                <button id="gather_wood" class="btn btn-dark">
-                    <i class="fas fa-tree"></i>
-                    Gather Wood
-                </button>
-                <h4 class="mt-5">Build</h4>
-                <button id="build_campfire" class="btn btn-primary">
-                    <i class="fab fa-gripfire"></i>
-                    Campfire (5 wood)
-                </button>
-            </div>
+        <div class="row mt-5">
             <div class="col-6">
-                <h4>Stuff</h4>
-                <div id="stuff" class="row">
-
-                </div>
-            </div>
-            <div class="col-3">
-                <h4>Event Log</h4>
-                <ul class="list-unstyled">
-                    <li>You woke up one morning. Gather some wood.</li>
+                <h4>Quick Guide</h4>
+                <ul>
+                    <li>Move around the map, this uses energy.</li>
+                    <li>If you run out of energy, you die.</li>
+                    <li>You can gather wood and stone from certain tiles on the map</li>
+                    <li>You can build a campfire on an open map tile, this uses wood but provides energy.</li>
+                    <li>Things you build are only active when your player is standing on them.</li>
                 </ul>
             </div>
         </div>
     </div>
-
-
-
-    
-
-
 </body>
 </html>
