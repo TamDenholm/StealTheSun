@@ -22,7 +22,7 @@ const map = {
         this.spritesheet.onload = () => {
             map.draw_map();
         };
-        this.spritesheet.src = '/images/spritesheets/map.png';
+        this.spritesheet.src = 'images/spritesheets/map.png';
     },
 
     draw_map(){
