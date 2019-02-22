@@ -112,6 +112,9 @@ const map = {
         if(name === 'woodstore'){
             return 15;
         }
+        if(name === 'energystore'){
+            return 15;
+        }
         console.log('Specified a sprite that doesnt exist!');
         return false;
     },

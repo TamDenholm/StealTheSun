@@ -10,11 +10,9 @@ const build = {
         cost: {
             wood: 5,
         },
-        produces: {
+        gather: {
             energy: 2,
-        },
-        consumes: {
-            wood: 1,
+            wood: -1
         }
     },
     stonestore: {
@@ -48,6 +46,23 @@ const build = {
             wood: 250
         }
     },
+    energystore: {
+        title: 'Energy Store (TEMP)',
+        icon: 'fas fa-warehouse',
+        sprite: 15,
+        requires_tile: false,
+        button: {
+            wood: 15,
+            stone: 15,
+        },
+        cost: {
+            wood: 60,
+            stone: 60
+        },
+        caps: {
+            energy: 100
+        }
+    },
     quarry:{
         title: 'Quarry',
         icon: 'fas fa-tools',
@@ -61,11 +76,9 @@ const build = {
             wood: 250,
             stone: 250,
         },
-        produces: {
-            stone: utilities.random(10, 15)
-        },
-        consumes: {
-            energy: 10
+        gather: {
+            stone: utilities.random(10, 15),
+            energy: -10
         },
     },
     sawmill: {
@@ -81,11 +94,9 @@ const build = {
             wood: 250,
             stone: 250,
         },
-        produces: {
-            wood: utilities.random(10, 15)
-        },
-        consumes: {
-            energy: 10
-        },
+        gather: {
+            wood: utilities.random(10, 15),
+            energy: -10
+        }
     }
 }

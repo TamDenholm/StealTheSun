@@ -1,12 +1,17 @@
 const main = {
 
     game_tick: 1000,
+    load: true,
+    save: true,
 
     // main loop of the game
     run(){
         // initial load
         resources.update();
         main.draw_buttons();
+        if(this.load === true){
+            main.load_state();
+        }
         map.init();
 
         // begin loop
@@ -16,12 +21,21 @@ const main = {
             main.production_consumption();
             resources.update();
             main.draw_buttons();
+            if(this.save === true){
+                main.save_state();
+            }
 
         }, this.game_tick);
     },
 
     die(){
-        $('body').html('<p class="container mt-5">You died sucka!<br><button onclick="location.reload();">Try again</button></p>');
+        resources.energy.amount = 50;
+        resources.wood.amount = 0;
+        resources.stone.amount = 0;
+        resources.metal.amount = 0;
+        resources.silicon.amount = 0;
+        main.save_state();
+        $('body').html('<p class="container mt-5">You died sucka!<br>You lost all of your resources but your buildings remain.<br><button onclick="location.reload();">Try again</button></p>');
     },
 
     production_consumption(){
@@ -36,7 +50,7 @@ const main = {
                     let amount = build[item].consumes[resource]
                     const result = main.wont_hit_cap(resource, amount);
                     console.log(`result of wont_hit_cap(${resource}, ${amount}) is ${result}`)
-                    if(main.wont_hit_cap(resource, amount)){
+                    if(main.wont_hit_cap(resource, amount)){ // we're using this wrong, it doesnt take arguments, need to refactor this
                         // edit resource
                         if(resources.edit(resource, (0-amount))){
                             console.log('consumed');
@@ -55,6 +69,7 @@ const main = {
     },
 
     // checks the resource caps to see if we can consume
+    // this should be in resources class
     wont_hit_cap(){
         let return_val = true;
         // get all the active items
@@ -92,11 +107,70 @@ const main = {
             if(resources.all_available(build[item].button)){
                 // we have met the available resource requirements
                 console.log(`Build button: ${build[item].title}`);
-                $('#build_buttons').append(`<button id="build_${item}" class="btn btn-primary m-1"><i class="${build[item].icon}"></i> ${build[item].title}</button>`);
+                // work out the cost for the tooltip
+                let cost = '';
+                $.each(build[item].cost, (resource, amount) => {
+                    cost += `${resource}: ${amount} `;
+                });
+                // create the button code
+                $('#build_buttons').append(
+                    `<button id="build_${item}" class="btn btn-primary m-1" data-tooltip="${cost}" data-tooltip-position="right">
+                    <i class="${build[item].icon}"></i>
+                    ${build[item].title}</button>`
+                );
                 build[item].button = false; // dont build a second button
                 actions.attach();
             }
         };
+    },
+
+    // keep the state of the game in localstorage
+    save_state(){
+        const state = window.localStorage;
+        // resources
+        state.setItem('resources', JSON.stringify(resources));
+        // player
+        state.setItem('pl_pos', JSON.stringify(player.get_position()));
+        // items
+        state.setItem('build', JSON.stringify(build));
+    },
+
+    // load the state of the game from the localstorage
+    load_state(){
+        const state = window.localStorage;
+        // load the resources
+        const obj = JSON.parse(state.getItem('resources'));
+        for(item in obj){
+            if(resources.hasOwnProperty(item)){
+                resources[item] = obj[item];
+            }
+        }
+        resources.update();
+
+        // load the player position
+        if(state.getItem('pl_pos')){
+            player.current_position = JSON.parse(state.getItem('pl_pos'));
+        }
+        // load the items
+        if(state.getItem('build')){
+            const items = JSON.parse(state.getItem('build'));
+            for(item in items){
+                build[item].exists = items[item].exists;
+                build[item].position = items[item].position;
+            }
+        }
+    },
+
+    // reset the game and start from scratch
+    reset(){
+        // suspend loading and saving
+        this.load = false;
+        this.save = false;
+        // clear localstorage
+        window.localStorage.clear();
+        // refresh the page
+        location.reload();
+
     }
 
 };
