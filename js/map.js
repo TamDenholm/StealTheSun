@@ -35,18 +35,20 @@ const map = {
         }
         // after we've drawn the map
         // place the resources
-        this.resources.forEach((resource,positions) => {
-            positions.forEach((k, position) => {
+        for(let resource in this.resources){
+            let positions = this.resources[resource]
+            positions.forEach((position) => {
                 map.draw_tile(resource, position[0]-1, position[1]-1);
             })
-        });
+        };
         // place the buildings
-        build.forEach((name,obj) => {
+        for(let name in build){
             // must exist and have a position array
+            let obj = build[name]
             if(obj.exists === true && Array.isArray(obj.position)){
                 map.draw_tile(name, obj.position[0]-1, obj.position[1]-1);
             }
-        });
+        };
         // get the player position
         const human = player.get_position();
         this.draw_tile('player', human[0]-1, human[1]-1);
@@ -117,13 +119,14 @@ const map = {
     // give coordinates, get the resource, or false
     get_resource(x,y){
         let rtn = false;
-        this.resources.forEach((resource,positions) => {
-            positions.forEach((k, position) => {
+        for(let resource in this.resources){
+            let positions = this.resources[resource]
+            positions.forEach((position) => {
                 if(position[0] === x && position[1] === y){
                     rtn = resource;
                 }
             })
-        });
+        };
         return rtn;
     },
 

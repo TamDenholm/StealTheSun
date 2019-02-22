@@ -12,11 +12,11 @@ const actions = {
         });
 
         // create button events
-        build.forEach((item) => {
+        for(let item in build){
             $(`#build_${item}`).off().on('click', () => {
                 items.build(item);
             });
-        });
+        };
 
         // player movement
         // left
