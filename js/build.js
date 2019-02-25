@@ -21,11 +21,11 @@ const build = {
         sprite: 14,
         requires_tile: false,
         button: {
-            wood: 100,
+            wood: 80,
         },
         cost: {
             wood: 150,
-            stone: 50,
+            stone: 45,
         },
         caps: {
             stone: 350
@@ -40,14 +40,14 @@ const build = {
             wood: 30,
         },
         cost: {
-            wood: 50,
+            wood: 45,
         },
         caps: {
             wood: 250
         }
     },
-    energystore: {
-        title: 'Energy Store (TEMP)',
+    shelter: {
+        title: 'Shelter',
         icon: 'fas fa-warehouse',
         sprite: 15,
         requires_tile: false,
@@ -56,11 +56,11 @@ const build = {
             stone: 15,
         },
         cost: {
-            wood: 60,
-            stone: 60
+            wood: 40,
+            stone: 40
         },
         caps: {
-            energy: 100
+            energy: 125
         }
     },
     quarry:{
@@ -69,12 +69,12 @@ const build = {
         sprite: 12,
         requires_tile: 'stone',
         button: {
-            wood: 220,
-            stone: 220,
+            wood: 90,
+            stone: 90,
         },
         cost: {
-            wood: 250,
-            stone: 250,
+            wood: 150,
+            stone: 120,
         },
         gather: {
             stone: utilities.random(10, 15),
@@ -87,12 +87,12 @@ const build = {
         sprite: 13,
         requires_tile: 'wood',
         button: {
-            wood: 200,
-            stone: 200,
+            wood: 90,
+            stone: 90,
         },
         cost: {
-            wood: 250,
-            stone: 250,
+            wood: 120,
+            stone: 150,
         },
         gather: {
             wood: utilities.random(10, 15),
