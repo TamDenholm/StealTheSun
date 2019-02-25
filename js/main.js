@@ -100,7 +100,7 @@ const main = {
     // draw the build buttons
     draw_buttons(){
         $.each(build, (item) => {
-            if(resources.all_available(build[item].button)){
+            if(build[item].button !== false && (resources.all_available(build[item].button) || utilities.state_get('buttons').includes(item))){
                 // we have met the available resource requirements
                 console.log(`Build button: ${build[item].title}`);
                 // work out the cost for the tooltip
@@ -115,6 +115,7 @@ const main = {
                     ${build[item].title}</button>`
                 );
                 build[item].button = false; // dont build a second button
+                utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
                 actions.attach();
             }
         });
