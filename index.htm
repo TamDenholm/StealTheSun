@@ -36,7 +36,36 @@ $(document).ready(function(){
             <div class="col">
                 <h1 class="display-4">Steal the Sun</h1>
                 <p class="lead">The game where you have to harness the sun's energy for some reason we're not sure about yet</p>
-                <a href="notes.htm">Notes</a><button class="btn btn-link" id="reset_game">Reset the game</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Map </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Research</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Inventory</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Leaderboard</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="notes.htm">Notes</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link" id="reset_game">Reset the game</button>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
         <div class="row">
@@ -72,7 +101,8 @@ $(document).ready(function(){
                         Gather / Use
                     </button>
                     <h4 class="mt-5">Build</h4>
-                    <div id="build_buttons"></div>
+                    <div id="build_buttons" class="list-group">
+                    </div>
                 </div>
                 <div class="col-2">
                 <h4>Movement</h4>

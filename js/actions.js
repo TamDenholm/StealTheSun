@@ -61,7 +61,7 @@ const actions = {
         });
 
         // reset the game
-        $('#reset_game').on('click', () => {
+        $('#reset_game').off().on('click', () => {
             const areyousure = confirm('Are you sure?');
             if(areyousure){
                 main.reset();

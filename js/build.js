@@ -1,6 +1,7 @@
 const build = {
     campfire: {
         title: 'Campfire',
+        desc: 'Uses wood to provide energy.',
         icon: 'fab fa-gripfire',
         sprite: 1,
         requires_tile: false,
