@@ -117,7 +117,7 @@ const main = {
                         <i class="${build[item].icon}"></i>
                     </div>
                     <p>${build[item].desc}</p>
-                    <small>${cost}</small></a>`
+                    <small>Cost: ${cost}</small></a>`
                 );
                 build[item].button = false; // dont build a second button
                 utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
