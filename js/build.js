@@ -98,5 +98,24 @@ const build = {
             wood: utilities.random(10, 15),
             energy: -10
         }
+    },
+    smelter: {
+        title: 'Smelter',
+        icon: 'fas fa-tools',
+        sprite: 15,
+        requires_tile: false,
+        button: {
+            wood: 20,
+            stone: 40,
+        },
+        cost: {
+            stone: 100,
+        },
+        gather: {
+            wood: -2,
+            stone: -1,
+            energy: -3,
+            metal: 1
+        }
     }
 }

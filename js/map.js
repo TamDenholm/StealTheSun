@@ -113,6 +113,9 @@ const map = {
         if(name === 'shelter'){
             return 15;
         }
+        if(name === 'smelter'){
+            return 15;
+        }
         console.log('Specified a sprite that doesnt exist!');
         return false;
     },
