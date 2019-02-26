@@ -18,6 +18,7 @@ const build = {
     },
     stonestore: {
         title: 'Stone Store',
+        desc: 'Increase the amount of stone you can store.',
         icon: 'fas fa-warehouse',
         sprite: 14,
         requires_tile: false,
@@ -34,6 +35,7 @@ const build = {
     },
     woodstore: {
         title: 'Wood Store',
+        desc: 'Increase the amount of wood you can store.',
         icon: 'fas fa-warehouse',
         sprite: 15,
         requires_tile: false,
@@ -49,6 +51,7 @@ const build = {
     },
     shelter: {
         title: 'Shelter',
+        desc: 'Increase the total amount of energy you have.',
         icon: 'fas fa-warehouse',
         sprite: 15,
         requires_tile: false,
@@ -66,6 +69,7 @@ const build = {
     },
     quarry:{
         title: 'Quarry',
+        desc: 'Mine stone faster',
         icon: 'fas fa-tools',
         sprite: 12,
         requires_tile: 'stone',
@@ -84,6 +88,7 @@ const build = {
     },
     sawmill: {
         title: 'Sawmill',
+        desc: 'Cut down trees faster',
         icon: 'fas fa-tools',
         sprite: 13,
         requires_tile: 'wood',
@@ -102,6 +107,7 @@ const build = {
     },
     smelter: {
         title: 'Smelter',
+        desc: 'Smelt metal from wood and stone.',
         icon: 'fas fa-tools',
         sprite: 15,
         requires_tile: false,
