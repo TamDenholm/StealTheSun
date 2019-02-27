@@ -110,9 +110,10 @@ const main = {
                 console.log(`Build button: ${build[item].title}`);
                 // work out the cost for the tooltip
                 let cost = '';
-                $.each(build[item].cost, (resource, amount) => {
+                for(let resource in build[item].cost){
+                    let amount = build[item].cost[resource]
                     cost += `${resource}: ${amount} `;
-                });
+                };
                 // create the button code
                 $('#build_buttons').append(
                     `<a href="#" id="build_${item}" class="list-group-item list-group-item-action disabled">

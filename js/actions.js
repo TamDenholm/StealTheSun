@@ -84,18 +84,19 @@ const actions = {
             }
         }
         // are we on a building?
-        $.each(build, (item) => {
+        for(let item in build){
             // check all the buildings
             if(build[item].exists === true && Array.isArray(build[item].position)){
                 // are we standing on it?
                 let item_pos = build[item].position;
                 if(pl_pos[0] === item_pos[0] && pl_pos[1] === item_pos[1]){
                     // cool, make the resource changes
-                    $.each(build[item].gather, (resource, amount) => {
+                    for(let resource in build[item].gather){
+                        let amount = build[item].gather[resource]
                         resources.edit(resource, amount);
-                    });
+                    };
                 }
             }
-        });
+        };
     }
 };
