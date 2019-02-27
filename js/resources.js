@@ -73,7 +73,7 @@ const resources = {
 
     // check to see if player has resources
     available(resource, amount){
-        if(this[resource].amount >= amount){
+        if(this[resource].amount >= Math.abs(amount)){ // forces positive number
             return true;
         }
         return false;
@@ -103,5 +103,18 @@ const resources = {
         }
         // didnt hit cap
         return false;
+    },
+
+    // check multiple resources for hitting cap
+    all_hit_cap(obj){
+        if(typeof obj === 'object'){
+            for(let k in obj){
+                if(this.hit_cap(k, obj[k])){
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true; // technically incorrect, but returning true so doesnt execute when used
     }
 };
