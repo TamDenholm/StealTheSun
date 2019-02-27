@@ -23,6 +23,9 @@ const items = {
                     if(map.get_resource(pl_pos[0], pl_pos[1]) === res_tile && build[item].requires_tile === res_tile){
                         console.log(`${item} is available to build`);
                         // build on tile
+                        /*
+                        *   This should not build in the loop, bring it out of the loop to build
+                        */
                         build[item].exists = true;
                         build[item].position = pl_pos;
                         resources.edit(resource, amount * -1);
