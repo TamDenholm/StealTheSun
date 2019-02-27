@@ -11,7 +11,8 @@ const items = {
         if(build.hasOwnProperty(item) && build[item].exists !== true){
             console.log(`${item} defined and doesnt already exist`);
             // can we afford this item?
-            $.each(build[item].cost, (resource, amount) => {
+            for(let resource in build[item].cost){
+                let amount = build[item].cost[resource]
                 if(resources.available(resource, amount)){
                     console.log(`${item} is affordable`);
                     // can we build on this tile?
@@ -25,13 +26,14 @@ const items = {
                         build[item].exists = true;
                         build[item].position = pl_pos;
                         resources.edit(resource, amount * -1);
-                        $.each(build[item].caps, (resource, cap) => {
+                        for(let resource in build[item].caps){
+                            let cap = build[item].caps[resource]
                             resources[resource].cap = cap;
-                        });
+                        };
                         map.draw_map();
                     }
                 }
-            });
+            };
         }
     },
 

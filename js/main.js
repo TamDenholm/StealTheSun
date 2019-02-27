@@ -41,13 +41,14 @@ const main = {
 
     production_consumption(){
         // get all the active items
-        $.each(items.get_active(), (k, item) => {
+        items.get_active().forEach((item) => {
             // is the player standing on the tile?
             const pl_pos = player.get_position();
             const item_pos = build[item].position;
             if(pl_pos[0] === item_pos[0] && pl_pos[1] === item_pos[1]){
                 // get everything the item consumes
-                $.each(build[item].consumes, (resource, amount) => {
+                for(let resource in build[item].consumes){
+                    let amount = build[item].consumes[resource]
                     const result = main.wont_hit_cap(resource, amount);
                     console.log(`result of wont_hit_cap(${resource}, ${amount}) is ${result}`)
                     if(main.wont_hit_cap(resource, amount)){ // we're using this wrong, it doesnt take arguments, need to refactor this
@@ -55,14 +56,15 @@ const main = {
                         if(resources.edit(resource, (0-amount))){
                             console.log('consumed');
                             // if consumed, then produce
-                            $.each(build[item].produces, (resource, amount) => {
+                            for(let resource in build[item].produces){
                                 // edit resource
+                                let amount = build[item].produces[resource]
                                 resources.edit(resource, amount);
                                 console.log('produced');
-                            });
+                            };
                         }
                     }
-                });
+                };
             }
         });
     },
@@ -72,12 +74,14 @@ const main = {
     wont_hit_cap(){
         let return_val = true;
         // get all the active items
-        $.each(items.get_active(), (k, item) => {
+        items.get_active().forEach((item) => {
             // in order to consume
-            $.each(build[item].consumes, (c_resource, c_amount) => {
+            for(let c_resource in build[item].consumes){
                 // first check what it produces
-                $.each(build[item].produces, (p_resource, p_amount) => {
+                let c_amount = build[item].consumes[c_resource]
+                for(let p_resource in build[item].produces){
                     // if what it produces will hit the cap
+                    let p_amount = build[item].produces[p_resource]
                     if(resources.hit_cap(p_resource, p_amount)){
                         // bring the resource to its cap
                         if(resources[p_resource].amount < resources[p_resource].cap){
@@ -91,8 +95,8 @@ const main = {
                         console.log(`Cannot consume ${c_resource} because adding ${p_amount} to ${p_resource} would hit its cap`);
                         return_val = false;
                     }
-                });
-            });
+                };
+            };
         });
         // all good in the hood, proceed
         return return_val;
@@ -100,15 +104,16 @@ const main = {
 
     // draw the build buttons
     draw_buttons(){
-        $.each(build, (item) => {
+        for(let item in build){
             if(build[item].button !== false && (resources.all_available(build[item].button) || utilities.state_get('buttons').includes(item))){
                 // we have met the available resource requirements
                 console.log(`Build button: ${build[item].title}`);
                 // work out the cost for the tooltip
                 let cost = '';
-                $.each(build[item].cost, (resource, amount) => {
+                for(let resource in build[item].cost){
+                    let amount = build[item].cost[resource]
                     cost += `${resource}: ${amount} `;
-                });
+                }
                 let tile = `Build on: ${build[item].requires_tile}`;
                 if(build[item].requires_tile === false){
                     tile = '';
@@ -131,7 +136,7 @@ const main = {
                 utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
                 actions.attach();
             }
-        });
+        };
     },
 
     // enable/disable build buttons based on resources

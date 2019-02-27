@@ -12,11 +12,11 @@ const actions = {
         });
 
         // create button events
-        $.each(build, (item) => {
+        for(let item in build){
             $(`#build_${item}`).off().on('click', () => {
                 items.build(item);
             });
-        });
+        };
 
         // player movement
         // left
@@ -84,7 +84,7 @@ const actions = {
             }
         }
         // are we on a building?
-        $.each(build, (item) => {
+        for(let item in build){
             // check all the buildings
             if(build[item].exists === true && Array.isArray(build[item].position)){
                 // are we standing on it?
@@ -100,6 +100,6 @@ const actions = {
                     // cannot brim
                 }
             }
-        });
+        };
     }
 };
