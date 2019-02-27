@@ -3,6 +3,10 @@ const items = {
     active_items: [],
 
     build(item){
+        // make sure we're not already standing on a building
+        if(player.on_building()){
+            return false;
+        }
         // check if item exists in the build object
         if(build.hasOwnProperty(item) && build[item].exists !== true){
             console.log(`${item} defined and doesnt already exist`);
