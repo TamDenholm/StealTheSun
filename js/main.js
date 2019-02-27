@@ -109,15 +109,23 @@ const main = {
                 $.each(build[item].cost, (resource, amount) => {
                     cost += `${resource}: ${amount} `;
                 });
+                let tile = `Build on: ${build[item].requires_tile}`;
+                if(build[item].requires_tile === false){
+                    tile = '';
+                }
                 // create the button code
                 $('#build_buttons').append(
                     `<a href="#" id="build_${item}" class="list-group-item list-group-item-action disabled">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5>${build[item].title}</h5>
-                        <i class="${build[item].icon}"></i>
+                        <h5><i class="${build[item].icon}"></i> &nbsp; ${build[item].title}</h5>
+                        <small>Cost: ${cost}
+                        </small>
                     </div>
-                    <p>${build[item].desc}</p>
-                    <small>Cost: ${cost}</small></a>`
+                    <div class="d-flex w-100 justify-content-between">
+                        ${build[item].desc}
+                        <small>${tile}</small>
+                    </div>
+                    </a>`
                 );
                 build[item].button = false; // dont build a second button
                 utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
