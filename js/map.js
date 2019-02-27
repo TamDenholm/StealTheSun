@@ -22,7 +22,7 @@ const map = {
         this.spritesheet.onload = () => {
             map.draw_map();
         };
-        this.spritesheet.src = '/images/spritesheets/map.png';
+        this.spritesheet.src = 'images/spritesheets/map.png';
     },
 
     draw_map(){
@@ -73,6 +73,12 @@ const map = {
     // lookup function that makes it easier to specify a sprite
     get_sprite(name, level = 3){
         // could do with putting this data in an object or something
+        if(name === 'grass'){
+            return 2;
+        }
+        if(name === 'player'){
+            return 3;
+        }
         if(name === 'stone'){
             switch (level) {
                 case 1: return 4;
@@ -91,29 +97,9 @@ const map = {
                 default: return 10;
             }
         }
-        if(name === 'campfire'){
-            return 1;
-        }
-        if(name === 'grass'){
-            return 2;
-        }
-        if(name === 'player'){
-            return 3;
-        }
-        if(name === 'quarry'){
-            return 12;
-        }
-        if(name === 'sawmill'){
-            return 13;
-        }
-        if(name === 'stonestore'){
-            return 14;
-        }
-        if(name === 'woodstore'){
-            return 15;
-        }
-        if(name === 'energystore'){
-            return 15;
+        if(build.hasOwnProperty(name)){
+            console.log(`Got sprite ${build[name].sprite} for ${name} from build obj`);
+            return build[name].sprite;
         }
         console.log('Specified a sprite that doesnt exist!');
         return false;

@@ -21,6 +21,7 @@ const main = {
             main.production_consumption();
             resources.update();
             main.draw_buttons();
+            main.build_button_toggle();
             if(this.save === true){
                 main.save_state();
             }
@@ -104,7 +105,7 @@ const main = {
     // draw the build buttons
     draw_buttons(){
         for(let item in build){
-            if(resources.all_available(build[item].button)){
+            if(build[item].button !== false && (resources.all_available(build[item].button) || utilities.state_get('buttons').includes(item))){
                 // we have met the available resource requirements
                 console.log(`Build button: ${build[item].title}`);
                 // work out the cost for the tooltip
@@ -114,14 +115,34 @@ const main = {
                 });
                 // create the button code
                 $('#build_buttons').append(
-                    `<button id="build_${item}" class="btn btn-primary m-1" data-tooltip="${cost}" data-tooltip-position="right">
-                    <i class="${build[item].icon}"></i>
-                    ${build[item].title}</button>`
+                    `<a href="#" id="build_${item}" class="list-group-item list-group-item-action disabled">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5>${build[item].title}</h5>
+                        <i class="${build[item].icon}"></i>
+                    </div>
+                    <p>${build[item].desc}</p>
+                    <small>Cost: ${cost}</small></a>`
                 );
                 build[item].button = false; // dont build a second button
+                utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
                 actions.attach();
             }
         };
+    },
+
+    // enable/disable build buttons based on resources
+    build_button_toggle(){
+        for(item in build){
+            // buttons we can see based on local storage
+            if(utilities.state_get('buttons').includes(item)){
+                // do we have the resources available and does it not already exist
+                if(resources.all_available(build[item].cost) && build[item].exists !== true){
+                    $(`#build_${item}`).removeClass('disabled').addClass('list-group-item-primary');
+                }else{
+                    $(`#build_${item}`).addClass('disabled').removeClass('list-group-item-primary');
+                }
+            }
+        }
     },
 
     // keep the state of the game in localstorage
