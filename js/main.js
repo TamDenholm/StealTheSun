@@ -145,6 +145,21 @@ const main = {
         }
     },
 
+    // enable/disable build buttons based on resources
+    build_button_toggle(){
+        for(item in build){
+            // buttons we can see based on local storage
+            if(utilities.state_get('buttons').includes(item)){
+                // do we have the resources available and does it not already exist
+                if(resources.all_available(build[item].cost) && build[item].exists !== true){
+                    $(`#build_${item}`).removeClass('disabled').addClass('list-group-item-primary');
+                }else{
+                    $(`#build_${item}`).addClass('disabled').removeClass('list-group-item-primary');
+                }
+            }
+        }
+    },
+
     // keep the state of the game in localstorage
     save_state(){
         const state = window.localStorage;
