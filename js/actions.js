@@ -90,11 +90,14 @@ const actions = {
                 // are we standing on it?
                 let item_pos = build[item].position;
                 if(pl_pos[0] === item_pos[0] && pl_pos[1] === item_pos[1]){
-                    // cool, make the resource changes
-                    for(let resource in build[item].gather){
-                        let amount = build[item].gather[resource]
-                        resources.edit(resource, amount);
-                    };
+                    // check resources are available
+                    if(resources.all_available(build[item].gather) && !resources.all_hit_cap(build[item].gather)){
+                        // cool, make the resource changes
+                        $.each(build[item].gather, (resource, amount) => {
+                            resources.edit(resource, amount);
+                        });
+                    }
+                    // cannot brim
                 }
             }
         };

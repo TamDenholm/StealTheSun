@@ -4,3 +4,7 @@
 .item img {
     height: 100px;
 }
+#build_buttons {
+    max-height: 576px;
+    overflow: auto;
+}

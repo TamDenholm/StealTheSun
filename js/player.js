@@ -39,4 +39,15 @@ const player = {
         }
     },
 
+    // is the player standing on a building
+    on_building(){
+        const pl_pos = this.get_position();
+        for(item in build){
+            if(JSON.stringify(build[item].position) === JSON.stringify(pl_pos)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
