@@ -35,5 +35,41 @@ const utilities = {
     // set item to localstorage, again, shorthand
     state_set(item, data){
         return window.localStorage.setItem(item, JSON.stringify(data));
-    }
+    },
+
+
+    // keep the state of the game in localstorage
+    save_state(){
+        // resources
+        this.state_set('resources', resources);
+        // player
+        this.state_set('pl_pos', player.get_position());
+        // items
+        this.state_set('build', build);
+    },
+
+    // load the state of the game from the localstorage
+    load_state(){
+        // load the resources
+        const obj = this.state_get('resources');
+        for(item in obj){
+            if(resources.hasOwnProperty(item)){
+                resources[item] = obj[item];
+            }
+        }
+        resources.update();
+
+        // load the player position
+        if(this.state_get('pl_pos')){
+            player.current_position = this.state_get('pl_pos');
+        }
+        // load the items
+        if(this.state_get('build')){
+            const items = this.state_get('build');
+            for(item in items){
+                build[item].exists = items[item].exists;
+                build[item].position = items[item].position;
+            }
+        }
+    },
 }

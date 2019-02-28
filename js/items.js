@@ -3,6 +3,10 @@ const items = {
     active_items: [],
 
     build(item){
+        // make sure we're not already standing on a building
+        if(player.on_building()){
+            return false;
+        }
         // check if item exists in the build object
         if(build.hasOwnProperty(item) && build[item].exists !== true){
             console.log(`${item} defined and doesnt already exist`);
@@ -19,6 +23,9 @@ const items = {
                     if(map.get_resource(pl_pos[0], pl_pos[1]) === res_tile && build[item].requires_tile === res_tile){
                         console.log(`${item} is available to build`);
                         // build on tile
+                        /*
+                        *   This should not build in the loop, bring it out of the loop to build
+                        */
                         build[item].exists = true;
                         build[item].position = pl_pos;
                         resources.edit(resource, amount * -1);
