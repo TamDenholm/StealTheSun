@@ -12,6 +12,7 @@ const main = {
         if(this.load === true){
             utilities.load_state();
         }
+        ui.load(); // Reload UI to ensure buttons that shouldn't be displayed in current save state isn't displayed
         map.init();
 
         // begin loop
