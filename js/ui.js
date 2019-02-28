@@ -22,22 +22,23 @@ const ui = {
     // draw the build buttons
     draw_buttons(){
         for(let item in build){
-            if(build[item].button !== false && (resources.all_available(build[item].button) || utilities.state_get('buttons').includes(item))){
-                // we have met the available resource requirements
-                console.log(`Build button: ${build[item].title}`);
-                // work out the cost for the tooltip
-                let cost = '';
-                for(let resource in build[item].cost){
-                    let amount = build[item].cost[resource]
-                    cost += `${resource}: ${amount} `;
-                }
-                let tile = `Build on: ${build[item].requires_tile}`;
-                if(build[item].requires_tile === false){
-                    tile = '';
-                }
-                // create the button code
-                $('#build_buttons').append(
-                    `<a href="#" id="build_${item}" class="list-group-item list-group-item-action disabled">
+            if((resources.all_available(build[item].button) || utilities.state_get('buttons').includes(item)) && !build[item].exists){
+                if(build[item].button !== false){
+                    // we have met the available resource requirements
+                    console.log(`Build button: ${build[item].title}`);
+                    // work out the cost for the tooltip
+                    let cost = '';
+                    for(let resource in build[item].cost){
+                        let amount = build[item].cost[resource]
+                        cost += `${resource}: ${amount} `;
+                    }
+                    let tile = `Build on: ${build[item].requires_tile}`;
+                    if(build[item].requires_tile === false){
+                        tile = '';
+                    }
+                    // create the button code
+                    $('#build_buttons').append(
+                        `<a href="#" id="build_${item}" class="list-group-item list-group-item-action disabled">
                     <div class="d-flex w-100 justify-content-between">
                         <h5><i class="${build[item].icon}"></i> &nbsp; ${build[item].title}</h5>
                         <small>Cost: ${cost}
@@ -48,10 +49,14 @@ const ui = {
                         <small>${tile}</small>
                     </div>
                     </a>`
-                );
-                build[item].button = false; // dont build a second button
-                utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
-                actions.attach();
+                    );
+                    build[item].button = false; // dont build a second button
+                    utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
+                    actions.attach();
+                }
+            }else if(!build[item].button){
+                document.getElementById(`build_${item}`).remove(); // Remove the button if it shouldn't be displayed right now.
+                build[item].button = true; // Make it possible to redisplay the button again.
             }
         };
     },
