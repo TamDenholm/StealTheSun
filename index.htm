@@ -23,6 +23,7 @@
     <script src="js/resources.js"></script>
     <script src="js/map.js"></script>
     <script src="js/player.js"></script>
+    <script src="js/ui.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -44,16 +45,13 @@ $(document).ready(function(){
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Map </a>
+                                <button id="goto_map" class="nav-link btn btn-link">Map</button>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Research</a>
+                                <button id="goto_research" class="nav-link btn btn-link">Research</button>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Inventory</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Leaderboard</a>
+                                <button id="goto_leaderboard" class="nav-link btn btn-link">Leaderboard</button>
                             </li>
                         </ul>
                     </div>
@@ -102,55 +100,67 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-7">
-                <canvas id="map" height="576" width="576"></canvas>
+        <!-- Start of content panel -->
+        <div id="content">
+            <div id="main">
+                <div class="row">
+                    <div class="col-7">
+                        <canvas id="map" height="576" width="576"></canvas>
+                    </div>
+                    <div class="col-5">
+                        <div id="build_buttons" class="list-group"></div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-2">
+                        <h4>Movement</h4>
+                        <div class="row">
+                            <div class="col-3 offset-3">
+                                <button class="btn btn-secondary" id="move_up"><i class="fas fa-arrow-up"></i></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                    <button class="btn btn-secondary" id="move_left"><i class="fas fa-arrow-left"></i></button>
+                            </div>
+                            <div class="col-3 offset-3">
+                                <button class="btn btn-secondary" id="move_right"><i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 offset-3">
+                                <button class="btn btn-secondary" id="move_down"><i class="fas fa-arrow-down"></i></button>
+                            </div>
+                        </div>
+                        <small class="pt-3">Arrow keys work!</small>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <h4 class="mt-5">Actions</h4>
+                        <button id="gather" class="btn btn-dark">
+                            <i class="fas fa-hand-paper"></i>
+                            Gather / Use
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <h4>Quick Guide</h4>
+                        <ul>
+                            <li>Move around the map, this uses energy.</li>
+                            <li>If you run out of energy, you die.</li>
+                            <li>You can gather wood and stone from certain tiles on the map</li>
+                            <li>You can build a campfire on an open map tile, this uses wood but provides energy.</li>
+                            <li>To operate buildings, stand on them and click "Gather / Use".</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="col-5">
-                <div id="build_buttons" class="list-group"></div>
+            <div id="research">
+                <p>Build a lab first!</p>
+            </div>
+            <div id="leaderboard">
+                <p>Future feature, i hope.</p>
             </div>
         </div>
-        <div class="row mt-5">
-            <div class="col-2">
-                <h4>Movement</h4>
-                <div class="row">
-                    <div class="col-3 offset-3">
-                        <button class="btn btn-secondary" id="move_up"><i class="fas fa-arrow-up"></i></button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                            <button class="btn btn-secondary" id="move_left"><i class="fas fa-arrow-left"></i></button>
-                    </div>
-                    <div class="col-3 offset-3">
-                        <button class="btn btn-secondary" id="move_right"><i class="fas fa-arrow-right"></i></button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3 offset-3">
-                        <button class="btn btn-secondary" id="move_down"><i class="fas fa-arrow-down"></i></button>
-                    </div>
-                </div>
-                <small class="pt-3">Arrow keys work!</small>
-            </div>
-            <div class="col-3 offset-1">
-                <h4 class="mt-5">Actions</h4>
-                <button id="gather" class="btn btn-dark">
-                    <i class="fas fa-hand-paper"></i>
-                    Gather / Use
-                </button>
-            </div>
-            <div class="col-6">
-                <h4>Quick Guide</h4>
-                <ul>
-                    <li>Move around the map, this uses energy.</li>
-                    <li>If you run out of energy, you die.</li>
-                    <li>You can gather wood and stone from certain tiles on the map</li>
-                    <li>You can build a campfire on an open map tile, this uses wood but provides energy.</li>
-                    <li>To operate buildings, stand on them and click "Gather / Use".</li>
-                </ul>
-            </div>
-        </div>
+        <!-- end of content panel -->
     </div>
 </body>
 </html>

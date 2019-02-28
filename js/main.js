@@ -8,9 +8,9 @@ const main = {
     run(){
         // initial load
         resources.update();
-        main.draw_buttons();
+        ui.load();
         if(this.load === true){
-            main.load_state();
+            utilities.load_state();
         }
         map.init();
 
@@ -20,10 +20,10 @@ const main = {
             // production & consumption
             main.production_consumption();
             resources.update();
-            main.draw_buttons();
-            main.build_button_toggle();
+            ui.draw_buttons();
+            ui.build_button_toggle();
             if(this.save === true){
-                main.save_state();
+                utilities.save_state();
             }
 
         }, this.game_tick);
@@ -35,7 +35,7 @@ const main = {
         resources.stone.amount = 0;
         resources.metal.amount = 0;
         resources.silicon.amount = 0;
-        main.save_state();
+        utilities.save_state();
         $('body').html('<p class="container mt-5">You died sucka!<br>You lost all of your resources but your buildings remain.<br><button onclick="location.reload();">Try again</button></p>');
     },
 
@@ -100,95 +100,6 @@ const main = {
         });
         // all good in the hood, proceed
         return return_val;
-    },
-
-    // draw the build buttons
-    draw_buttons(){
-        for(let item in build){
-            if(build[item].button !== false && (resources.all_available(build[item].button) || utilities.state_get('buttons').includes(item))){
-                // we have met the available resource requirements
-                console.log(`Build button: ${build[item].title}`);
-                // work out the cost for the tooltip
-                let cost = '';
-                for(let resource in build[item].cost){
-                    let amount = build[item].cost[resource]
-                    cost += `${resource}: ${amount} `;
-                }
-                let tile = `Build on: ${build[item].requires_tile}`;
-                if(build[item].requires_tile === false){
-                    tile = '';
-                }
-                // create the button code
-                $('#build_buttons').append(
-                    `<a href="#" id="build_${item}" class="list-group-item list-group-item-action disabled">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5><i class="${build[item].icon}"></i> &nbsp; ${build[item].title}</h5>
-                        <small>Cost: ${cost}
-                        </small>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                        ${build[item].desc}
-                        <small>${tile}</small>
-                    </div>
-                    </a>`
-                );
-                build[item].button = false; // dont build a second button
-                utilities.state_append_unique('buttons', item); // we've unlocked it, keep it unlocked if we die
-                actions.attach();
-            }
-        };
-    },
-
-    // enable/disable build buttons based on resources
-    build_button_toggle(){
-        for(item in build){
-            // buttons we can see based on local storage
-            if(utilities.state_get('buttons').includes(item)){
-                // do we have the resources available and does it not already exist
-                if(resources.all_available(build[item].cost) && build[item].exists !== true){
-                    $(`#build_${item}`).removeClass('disabled').addClass('list-group-item-primary');
-                }else{
-                    $(`#build_${item}`).addClass('disabled').removeClass('list-group-item-primary');
-                }
-            }
-        }
-    },
-
-    // keep the state of the game in localstorage
-    save_state(){
-        const state = window.localStorage;
-        // resources
-        state.setItem('resources', JSON.stringify(resources));
-        // player
-        state.setItem('pl_pos', JSON.stringify(player.get_position()));
-        // items
-        state.setItem('build', JSON.stringify(build));
-    },
-
-    // load the state of the game from the localstorage
-    load_state(){
-        const state = window.localStorage;
-        // load the resources
-        const obj = JSON.parse(state.getItem('resources'));
-        for(item in obj){
-            if(resources.hasOwnProperty(item)){
-                resources[item] = obj[item];
-            }
-        }
-        resources.update();
-
-        // load the player position
-        if(state.getItem('pl_pos')){
-            player.current_position = JSON.parse(state.getItem('pl_pos'));
-        }
-        // load the items
-        if(state.getItem('build')){
-            const items = JSON.parse(state.getItem('build'));
-            for(item in items){
-                build[item].exists = items[item].exists;
-                build[item].position = items[item].position;
-            }
-        }
     },
 
     // reset the game and start from scratch

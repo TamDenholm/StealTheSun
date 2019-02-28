@@ -8,3 +8,6 @@
     max-height: 576px;
     overflow: auto;
 }
+#research, #inventory, #leaderboard {
+    display: none;
+}
